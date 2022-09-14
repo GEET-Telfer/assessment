@@ -6,31 +6,64 @@ class AssessmentService {
 	private static string $tableName = 'assessment';
 
 	public static function createAssessmentQuestion( $request ) {
-		//TODO: verify $request
-
-		$aq = new AssessmentQuestion(
-			$request['component'],
-			$request['componentAbbrev'],
-			$request['description'],
-			$request['scoring']
-		);
+		$aq = self::parseRequest( $request );
 
 		global $wpdb;
-		// TODO: encapsulate data array with AssessmentQuestion class
+
 		$success = $wpdb->insert(
 			$wpdb->prefix . self::$tableName,
-			[
-				'component'        => $request['component'],
-				'component_abbrev' => $request['componentAbbrev'],
-				'description'      => $request['description'],
-				'scoring'          => json_encode( $request['scoring'] )
-			]
+			$aq->toArray()
 		);
 
-		print_r( $request );
+		return $success;
+	}
 
-		print_r( $aq->toArray() );
+	public static function updateAssessmentQuestion( $request ) {
+		// NOTE: expecting hidden input with assessmentId
+		if ( ! isset( $request['id'] ) ) {
+			return false;
+		}
+		$aq = self::parseRequest( $request );
+
+		global $wpdb;
+
+		$success = $wpdb->update(
+			$wpdb->prefix . self::$tableName,
+			$aq->toArray(),
+			$request['Id']
+		);
 
 		return $success;
+	}
+
+	public static function deleteAssessmentQuestion( $request ) {
+		// NOTE: expecting hidden input with assessmentId
+		if ( ! isset( $request['id'] ) ) {
+			return false;
+		}
+		$aq = self::parseRequest( $request );
+
+		global $wpdb;
+
+		$success = $wpdb->delete(
+			$wpdb->prefix . self::$tableName,
+			$request['Id']
+		);
+
+		return $success;
+	}
+
+	private static function parseRequest( $request ): AssessmentQuestion {
+		//TODO: verify $request
+
+		$aq = AssessmentQuestionBuilder::init()
+		                               ->component( $request['component'] )
+		                               ->componentAbbrev( $request['componentAbbrev'] )
+		                               ->description( $request['description'] )
+		                               ->scoring( json_encode( $request['scoring'] ) );
+
+		$aq = isset( $request['id'] ) ? $aq->id( $request['id'] ) : $aq;
+
+		return $aq->build();
 	}
 }

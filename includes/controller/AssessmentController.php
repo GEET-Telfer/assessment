@@ -10,8 +10,29 @@ require_once( ABSPATH . 'wp-content/plugins/assessment/includes/service/Assessme
  */
 function createAssessmentQuestion(): void {
 	if(isset($_POST)){
-
 		$result = AssessmentService::createAssessmentQuestion($_POST);
+		echo $result;
+	}
+	die();
+}
+
+/**
+ * @return void
+ */
+function updateAssessmentQuestion(): void {
+	if(isset($_POST)){
+		$result = AssessmentService::updateAssessmentQuestion($_POST);
+		echo $result;
+	}
+	die();
+}
+
+/**
+ * @return void
+ */
+function deleteAssessmentQuestion(): void {
+	if(isset($_POST)){
+		$result = AssessmentService::deleteAssessmentQuestion($_POST);
 		echo $result;
 	}
 	die();
