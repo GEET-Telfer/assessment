@@ -15,9 +15,9 @@ register_activation_hook( __FILE__, 'init_table_user_response' );
 register_activation_hook( __FILE__, 'init_table_team' );
 
 
-require_once('includes/controller/AssessmentController.php');
+require_once( 'includes/controller/AssessmentController.php' );
 add_action( 'wp_ajax_create_assessment_question', 'createAssessmentQuestion' );
-
-// TODO: add actions for Update/Delete AssessmentQuestions
+add_action( 'wp_ajax_update_assessment_question', 'updateAssessmentQuestion' );
+add_action( 'wp_ajax_delete_assessment_question', 'deleteAssessmentQuestion' );
 
 // TODO: add plugin interface
