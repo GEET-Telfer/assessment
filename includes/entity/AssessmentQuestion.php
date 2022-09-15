@@ -1,7 +1,7 @@
 <?php
-require_once( ABSPATH . 'wp-content/plugins/assessment/includes/interface/AssessmentQuestionBuilder.php' );
+require_once( ABSPATH . 'wp-content/plugins/assessment/includes/interface/Builder.php' );
 
-use AssessmentQuestion\Builder as Builder;
+use Builder\AssessmentBuilder as Builder;
 
 class AssessmentQuestionBuilder implements Builder {
 	private AssessmentQuestion $assessmentQuestion;
@@ -91,9 +91,11 @@ class AssessmentQuestion {
 		$this->scoring = $scoring;
 	}
 
-	public function __construct() {}
+	public function __construct() {
+	}
 
-	public function __destruct() {}
+	public function __destruct() {
+	}
 
 	public function toArray(): array {
 		$arr = [
