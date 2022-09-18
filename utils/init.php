@@ -17,10 +17,10 @@ function init_table_assessment(): void {
 
 	$schema = "CREATE TABLE IF NOT EXISTS " . $tableName . "(
 		id  INT UNSIGNED AUTO_INCREMENT,
-		component VARCHAR(255), 
-		component_abbrev VARCHAR(10),
-		description TEXT,
-		scoring TEXT,
+		component VARCHAR(255) NOT NULL, 
+		description VARCHAR(255) NOT NULL,
+		illustrative_metric VARCHAR(255) NOT NULL,
+		scoring TINYINT NOT NULL,
 		PRIMARY KEY (id)
 	) ";
 

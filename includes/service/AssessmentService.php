@@ -58,9 +58,9 @@ class AssessmentService {
 
 		$aq = AssessmentQuestionBuilder::init()
 		                               ->component( $request['component'] )
-		                               ->componentAbbrev( $request['componentAbbrev'] )
 		                               ->description( $request['description'] )
-		                               ->scoring( json_encode( $request['scoring'] ) );
+		                               ->illustrativeMetric( $request['illustrative_metric'] )
+		                               ->scoring( ( $request['scoring'] ) );
 
 		$aq = isset( $request['id'] ) ? $aq->id( $request['id'] ) : $aq;
 

@@ -26,14 +26,14 @@ class AssessmentQuestionBuilder implements Builder {
 		return $this;
 	}
 
-	public function componentAbbrev( $componentAbbrev ): AssessmentQuestionBuilder {
-		$this->assessmentQuestion->setComponentAbbrev( $componentAbbrev );
+	public function description( $description ): AssessmentQuestionBuilder {
+		$this->assessmentQuestion->setDescription( $description );
 
 		return $this;
 	}
 
-	public function description( $description ): AssessmentQuestionBuilder {
-		$this->assessmentQuestion->setDescription( $description );
+	public function illustrativeMetric( $illustrativeMetric ): AssessmentQuestionBuilder {
+		$this->assessmentQuestion->setIllustrativeMetric( $illustrativeMetric );
 
 		return $this;
 	}
@@ -52,9 +52,9 @@ class AssessmentQuestionBuilder implements Builder {
 class AssessmentQuestion {
 	private ?int $id = null;
 	private ?string $component = null;
-	private ?string $componentAbbrev = null;
 	private ?string $description = null;
-	private ?string $scoring = null;
+	private ?string $illustrativeMetric = null;
+	private ?int $scoring = null;
 
 	/**
 	 * @param int|null $id
@@ -71,13 +71,6 @@ class AssessmentQuestion {
 	}
 
 	/**
-	 * @param string|null $componentAbbrev
-	 */
-	function setComponentAbbrev( ?string $componentAbbrev ): void {
-		$this->componentAbbrev = $componentAbbrev;
-	}
-
-	/**
 	 * @param string|null $description
 	 */
 	function setDescription( ?string $description ): void {
@@ -85,9 +78,16 @@ class AssessmentQuestion {
 	}
 
 	/**
+	 * @param string|null $illustrativeMetric
+	 */
+	public function setIllustrativeMetric( ?string $illustrativeMetric ): void {
+		$this->illustrativeMetric = $illustrativeMetric;
+	}
+
+	/**
 	 * @param string|null $scoring
 	 */
-	function setScoring( ?string $scoring ): void {
+	function setScoring( ?int $scoring ): void {
 		$this->scoring = $scoring;
 	}
 
@@ -99,10 +99,10 @@ class AssessmentQuestion {
 
 	public function toArray(): array {
 		$arr = [
-			'component'        => $this->component,
-			'component_abbrev' => $this->componentAbbrev,
-			'description'      => $this->description,
-			'scoring'          => $this->scoring
+			'component'   => $this->component,
+			'description' => $this->description,
+			'illustrative_metric' => $this->illustrativeMetric,
+			'scoring'     => $this->scoring
 		];
 		if ( ! is_null( $this->id ) ) {
 			$arr['id'] = $this->id;
