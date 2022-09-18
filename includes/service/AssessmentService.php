@@ -5,6 +5,15 @@ require_once( ABSPATH . 'wp-content/plugins/assessment/includes//entity/Assessme
 class AssessmentService {
 	private static string $tableName = 'assessment';
 
+	public static function findAllAssessmentQuestion() {
+		global $wpdb;
+		$results = $wpdb->get_results(
+			"SELECT * FROM " . $wpdb->prefix . self::$tableName . " ORDER BY component"
+		);
+
+		return $results;
+	}
+
 	public static function createAssessmentQuestion( $request ) {
 		$aq = self::parseRequest( $request );
 

@@ -20,7 +20,6 @@ function admin_assessment_ui(): void {
 	register_post_type( 'assessment', $args );
 }
 
-
 function CreateAssessmentDetails(): void {
 	add_meta_box(
 		"assessment_create",
@@ -79,14 +78,22 @@ function CreateAssessment(): void {
 	<?php
 }
 
-//function save_create_assessment_form() {
-//	createAssessmentQuestion();
-//}
+function findAllAssessmentDetails(): void {
+	add_meta_box(
+		"assessment_find_all",
+		"Display Assessment Question",
+		"findAllAssessment",
+		"assessment",
+		"normal",
+		"low"
+	);
+}
 
-//function save_update_assessment_form() {
-//	updateAssessmentQuestion($_POST);
-//}
-//
-//function find_all_assessment() {
-//	findAllAssessmentQuestion();
-//}
+function findAllAssessment(): void {
+	wp_enqueue_style( 'bootstrap-css', '//cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css' );
+	wp_enqueue_script( 'bootstrap-js', '//cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js' );
+	wp_enqueue_script( 'find-all-assessment', plugins_url( '/script/handleFindAllAssessment.js', __FILE__ ), array( 'jquery' ) );
+	?>
+    <button class="btn btn-primary btn-fetch">Fetch</button>
+	<?php
+}

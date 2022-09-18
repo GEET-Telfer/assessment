@@ -1,16 +1,16 @@
 <?php
-declare(strict_types=1);
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
+declare( strict_types=1 );
+ini_set( 'display_errors', '1' );
+ini_set( 'display_startup_errors', '1' );
+error_reporting( E_ALL );
 require_once( ABSPATH . 'wp-content/plugins/assessment/includes/service/AssessmentService.php' );
 
 /**
  * @return void
  */
 function createAssessmentQuestion(): void {
-	if(isset($_POST)){
-		$result = AssessmentService::createAssessmentQuestion($_POST);
+	if ( isset( $_POST ) ) {
+		$result = AssessmentService::createAssessmentQuestion( $_POST );
 		echo $result;
 	}
 	die();
@@ -20,8 +20,8 @@ function createAssessmentQuestion(): void {
  * @return void
  */
 function updateAssessmentQuestion(): void {
-	if(isset($_POST)){
-		$result = AssessmentService::updateAssessmentQuestion($_POST);
+	if ( isset( $_POST ) ) {
+		$result = AssessmentService::updateAssessmentQuestion( $_POST );
 		echo $result;
 	}
 	die();
@@ -31,9 +31,21 @@ function updateAssessmentQuestion(): void {
  * @return void
  */
 function deleteAssessmentQuestion(): void {
-	if(isset($_POST)){
-		$result = AssessmentService::deleteAssessmentQuestion($_POST);
+	if ( isset( $_POST ) ) {
+		$result = AssessmentService::deleteAssessmentQuestion( $_POST );
 		echo $result;
+	}
+	die();
+}
+
+function findAllAssessmentQuestion(): void {
+	if ( isset( $_GET ) ) {
+		$result = AssessmentService::findAllAssessmentQuestion();
+		if ( is_array( $result ) ) {
+			print_r( $result );
+		} else {
+			echo $result;
+		}
 	}
 	die();
 }
