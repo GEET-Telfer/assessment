@@ -14,7 +14,8 @@ function admin_assessment_ui(): void {
 		'capability_type' => 'post',
 		'hierarchical'    => false,
 		'menu_position'   => null,
-		'supports'        => [ 'thumbnail' ]
+		'supports'        => [ 'thumbnail' ],
+		'show_in_rest'    => true
 	];
 
 	register_post_type( 'assessment', $args );

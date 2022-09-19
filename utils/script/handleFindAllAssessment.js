@@ -3,7 +3,7 @@ jQuery(document).ready(($) => {
     function handleFindAllAssessment(e) {
         e.preventDefault();
         $.ajax({
-            url: '/wp-admin/admin-ajax.php',
+            url: '/wp-json/assessment/v1/find-all',
             type: 'GET',
             dataType: 'JSON',
             data: {
@@ -19,5 +19,4 @@ jQuery(document).ready(($) => {
     }
 
     $(document).on('click', '.btn-fetch', handleFindAllAssessment);
-
 });
