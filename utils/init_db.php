@@ -20,6 +20,7 @@ function init_table_assessment(): void {
 		component VARCHAR(255) NOT NULL, 
 		description VARCHAR(255) NOT NULL,
 		illustrative_metric VARCHAR(255) NOT NULL,
+		hasNA BOOLEAN,
 		scoring TINYINT NOT NULL,
 		PRIMARY KEY (id)
 	) ";
