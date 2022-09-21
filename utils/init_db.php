@@ -19,8 +19,7 @@ function init_table_assessment(): void {
 		id  INT UNSIGNED AUTO_INCREMENT,
 		component VARCHAR(255) NOT NULL, 
 		description VARCHAR(255) NOT NULL,
-		illustrative_metric VARCHAR(255) NOT NULL,
-		hasNA BOOLEAN,
+		hasNA BOOLEAN NOT NULL DEFAULT FALSE,
 		scoring TINYINT NOT NULL,
 		PRIMARY KEY (id)
 	) ";

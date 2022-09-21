@@ -17,7 +17,7 @@ interface AssessmentBuilder extends BaseBuilder {
 
 	public function component( $component ): AssessmentBuilder;
 
-	public function illustrativeMetric( $illustrativeMetric ): AssessmentBuilder;
+	public function hasNA( $hasNA ): AssessmentBuilder;
 
 	public function description( $description ): AssessmentBuilder;
 

@@ -37,7 +37,7 @@ function CreateAssessment(): void {
 	wp_enqueue_script( 'bootstrap-js', '//cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js' );
 	wp_enqueue_script( 'create-assessment', plugins_url( '/script/handleCreateAssessment.js', __FILE__ ), array( 'jquery' ) );
 	?>
-    <form>
+    <form id="form-create-assessment">
         <div class="input-group mb-3">
             <label for="component" class="input-group-text">Component</label>
             <select class="form-select" id="component" required>
@@ -60,11 +60,6 @@ function CreateAssessment(): void {
         </div>
 
         <div class="mb-3">
-            <label for="illustrative_metric" class="form-label">Illustrative Metrics</label>
-            <input type="text" class="form-control" id="illustrative_metric">
-        </div>
-
-        <div class="mb-3">
             <label for="scoring" class="form-label">Max Scoring:
                 <output id="amount" name="amount" for="rangeInput">5</output>
             </label>
@@ -72,6 +67,12 @@ function CreateAssessment(): void {
                    oninput="amount.value=this.value">
         </div>
 
+        <div class="mb-3">
+            <label class="form-check-label" for="hasNA">
+                Has Not Applicable
+            </label>
+            <input class="form-check-input" type="checkbox" value="" id="hasNA">
+        </div>
 
         <button type="submit" class="btn btn-primary btn-submit">Submit</button>
         <button type="reset" class="btn btn-secondary">Reset</button>

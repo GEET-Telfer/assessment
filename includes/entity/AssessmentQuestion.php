@@ -32,8 +32,8 @@ class AssessmentQuestionBuilder implements Builder {
 		return $this;
 	}
 
-	public function illustrativeMetric( $illustrativeMetric ): AssessmentQuestionBuilder {
-		$this->assessmentQuestion->setIllustrativeMetric( $illustrativeMetric );
+	public function hasNA( $hasNA ): AssessmentQuestionBuilder {
+		$this->assessmentQuestion->setHasNA( $hasNA );
 
 		return $this;
 	}
@@ -53,7 +53,7 @@ class AssessmentQuestion {
 	private ?int $id = null;
 	private ?string $component = null;
 	private ?string $description = null;
-	private ?string $illustrativeMetric = null;
+	private bool $hasNA = false;
 	private ?int $scoring = null;
 
 	/**
@@ -77,11 +77,14 @@ class AssessmentQuestion {
 		$this->description = $description;
 	}
 
+
 	/**
-	 * @param string|null $illustrativeMetric
+	 * @param string|null $hasNA
+	 *
+	 * @return void
 	 */
-	public function setIllustrativeMetric( ?string $illustrativeMetric ): void {
-		$this->illustrativeMetric = $illustrativeMetric;
+	public function setHasNA( ?bool $hasNA ): void {
+		$this->hasNA = $hasNA;
 	}
 
 	/**
@@ -101,7 +104,7 @@ class AssessmentQuestion {
 		$arr = [
 			'component'   => $this->component,
 			'description' => $this->description,
-			'illustrative_metric' => $this->illustrativeMetric,
+			'hasNA'       => $this->hasNA,
 			'scoring'     => $this->scoring
 		];
 		if ( ! is_null( $this->id ) ) {
