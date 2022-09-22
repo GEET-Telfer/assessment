@@ -41,11 +41,8 @@ function deleteAssessmentQuestion(): void {
 function findAllAssessmentQuestion(): void {
 	if ( isset( $_GET ) ) {
 		$result = AssessmentService::findAllAssessmentQuestion();
-		if ( is_array( $result ) ) {
-			print_r( $result );
-		} else {
-			echo $result;
-		}
+
+		echo json_encode($result);
 	}
 	die();
 }
