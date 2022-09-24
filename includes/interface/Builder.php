@@ -23,3 +23,14 @@ interface AssessmentBuilder extends BaseBuilder {
 
 	public function scoring( $scoring ): AssessmentBuilder;
 }
+
+/**
+ *
+ */
+interface UserResponseBuilder extends BaseBuilder {
+	public function userEmail( $userEmail ): UserResponseBuilder;
+
+	public function answer( $answer ): UserResponseBuilder;
+
+	public function score( $score ): UserResponseBuilder;
+}
