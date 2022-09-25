@@ -1,30 +1,30 @@
 <?php
 declare( strict_types=1 );
-require_once( ABSPATH . 'wp-content/plugins/assessment/includes//entity/AssessmentQuestion.php' );
+require_once( ABSPATH . 'wp-content/plugins/assessment/includes/entity/AssessmentQuestion.php' );
+require_once( ABSPATH . 'wp-content/plugins/assessment/includes/validator/AssessmentQuestionValidator.php' );
 
 class AssessmentService {
 	private static string $tableName = 'assessment';
 
 	public static function findAllAssessmentQuestion() {
 		global $wpdb;
-		$results = $wpdb->get_results(
+
+		return $wpdb->get_results(
 			"SELECT * FROM " . $wpdb->prefix . self::$tableName . " ORDER BY component"
 		);
-
-		return $results;
 	}
 
 	public static function createAssessmentQuestion( $request ) {
-		$aq = self::parseRequest( $request );
+		$obj = self::parseRequest( $request );
 
 		global $wpdb;
 
-		$success = $wpdb->insert(
-			$wpdb->prefix . self::$tableName,
-			$aq->toArray()
-		);
+		$data = $obj->toArray();
 
-		return $success;
+		return $wpdb->insert(
+			$wpdb->prefix . self::$tableName,
+			$data
+		);
 	}
 
 	public static function updateAssessmentQuestion( $request ) {
@@ -32,17 +32,17 @@ class AssessmentService {
 		if ( ! isset( $request['id'] ) ) {
 			return false;
 		}
-		$aq = self::parseRequest( $request );
+		$obj = self::parseRequest( $request );
 
 		global $wpdb;
 
-		$success = $wpdb->update(
+		$data = $obj->toArray();
+
+		return $wpdb->update(
 			$wpdb->prefix . self::$tableName,
-			$aq->toArray(),
+			$data,
 			$request['Id']
 		);
-
-		return $success;
 	}
 
 	public static function deleteAssessmentQuestion( $request ) {
@@ -50,29 +50,56 @@ class AssessmentService {
 		if ( ! isset( $request['id'] ) ) {
 			return false;
 		}
-		$aq = self::parseRequest( $request );
+		$obj = self::parseRequest( $request );
 
 		global $wpdb;
 
-		$success = $wpdb->delete(
+		return $wpdb->delete(
 			$wpdb->prefix . self::$tableName,
 			$request['Id']
 		);
-
-		return $success;
 	}
 
 	private static function parseRequest( $request ): AssessmentQuestion {
-		//TODO: verify $request
+		if ( ! self::isSubset( $request, [ 'component', 'description', 'hasNA', 'scoring' ] ) ) {
+			throw new Exception( "Invalid Request Parameters" );
+		}
 
-		$aq = AssessmentQuestionBuilder::init()
-		                               ->component( $request['component'] )
-		                               ->description( $request['description'] )
-		                               ->hasNA( $request['hasNA'] )
-		                               ->scoring( ( $request['scoring'] ) );
+		$component   = $request['component'];
+		$description = $request['description'];
+		$hasNA       = $request['hasNA'];
+		$scoring     = $request['scoring'];
 
-		$aq = isset( $request['id'] ) ? $aq->id( $request['id'] ) : $aq;
+		$validator = new AssessmentQuestionValidator();
+		$validator->isComponent( $component );
+		$validator->isDescription( $description );
+		$validator->isHasNA( $hasNA );
+		$validator->isScoring( $scoring );
 
-		return $aq->build();
+		$obj = AssessmentQuestionBuilder::init()
+		                                ->component( $request['component'] )
+		                                ->description( $request['description'] )
+		                                ->hasNA( $request['hasNA'] )
+		                                ->scoring( ( $request['scoring'] ) );
+
+		$obj = isset( $request['id'] ) ? $obj->id( $request['id'] ) : $obj;
+
+		return $obj->build();
+	}
+
+	/**
+	 * @param $request
+	 * @param $lookup
+	 *
+	 * @return bool
+	 */
+	private static function isSubset( $request, $lookup ): bool {
+		foreach ( $lookup as $key ) {
+			if ( ! array_key_exists( $key, $request ) ) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }

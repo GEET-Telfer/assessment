@@ -10,8 +10,13 @@ require_once( ABSPATH . 'wp-content/plugins/assessment/includes/service/Assessme
  */
 function createAssessmentQuestion(): void {
 	if ( isset( $_POST ) ) {
-		$result = AssessmentService::createAssessmentQuestion( $_POST );
-		echo $result;
+		try {
+			$result = AssessmentService::createAssessmentQuestion( $_POST );
+			echo $result;
+		} catch ( Exception $e ) {
+			echo "Caught exception: " . $e->getMessage() . "\n";
+			wp_send_json_error( $e->getMessage(), 422 );
+		}
 	}
 	die();
 }
@@ -42,7 +47,7 @@ function findAllAssessmentQuestion(): void {
 	if ( isset( $_GET ) ) {
 		$result = AssessmentService::findAllAssessmentQuestion();
 
-		echo json_encode($result);
+		echo json_encode( $result );
 	}
 	die();
 }
