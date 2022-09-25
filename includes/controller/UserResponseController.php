@@ -6,48 +6,36 @@ ini_set( 'display_startup_errors', '1' );
 error_reporting( E_ALL );
 require_once( ABSPATH . 'wp-content/plugins/assessment/includes/service/UserResponseService.php' );
 
-
-define( "HTML_EMAIL_HEADERS", array( 'Content-Type: text/html; charset=UTF-8' ) );
-
-// @email - Email address of the reciever
-// @subject - Subject of the email
-// @heading - Heading to place inside of the woocommerce template
-// @message - Body content (can be HTML)
-
-function send_email_woocommerce_style( $email, $subject, $heading, $message ) {
-
-	// Get woocommerce mailer from instance
-	$mailer = WC()->mailer();
-
-	// Wrap message using woocommerce html email template
-	$wrapped_message = $mailer->wrap_message( $heading, $message );
-
-	// Create new WC_Email instance
-	$wc_email = new WC_Email;
-
-	// Style the wrapped message with woocommerce inline styles
-	$html_message = $wc_email->style_inline( $wrapped_message );
-
-	// Send the email using wordpress mail function
-	$mailer->send( $email, $subject, $html_message, HTML_EMAIL_HEADERS );
-
-}
-
 /**
  * @return void
  */
 function createUserResponse(): void {
 	if ( isset( $_POST ) ) {
-		$result = UserResponseService::createUserResponse( $_POST );
-//		print_r($_POST);
-//		echo $result;
+		global $wpdb;
+		// begin transaction
+		try {
+			$wpdb->query( 'START TRANSACTION' );
+			$result = UserResponseService::createUserResponse( $_POST );
 
-		// send wp_mail
-		$to      = "wzlpuck@gmail.com";
-		$subject = "test";
-		$heading = "";
-		$message = "It works";
-		send_email_woocommerce_style( $to, $subject, $heading, $message );
+			// send wp_mail
+			$to      = "wzlpuck@gmail.com";
+			$subject = "test";
+			$message = [
+				"user-response" => json_decode( $_POST['user_response'] ),
+				"evaluation"    => $_POST['score']
+			];
+
+			$sent = wp_mail( $to, $subject, print_r( $message ) );
+			if ( $sent ) {
+				$wpdb->query( 'COMMIT' );
+			} else {
+				$wpdb->query( 'ROLLBACK' );
+				wp_send_json_error("Something wrong with the server.", 500);
+			}
+		} catch ( Exception $e ) {
+			echo "Caught exception: " . $e->getMessage() . "\n";
+			wp_send_json_error($e->getMessage(), 422);
+		}
 	}
 	die();
 }
