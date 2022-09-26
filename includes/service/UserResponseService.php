@@ -35,10 +35,10 @@ class UserResponseService {
 	 * @throws Exception
 	 */
 	private static function parseRequest( $request ): ?UserResponse {
-		if ( ! self::isSubset( $request, [ 'user_response', 'user_email', 'score' ] ) ) {
-			throw new Exception( "Invalid Request Parameters" );
+		if ( ! self::isSubset( $request, USER_RESPONSE_PARAMS ) ) {
+			throw new Exception( "Invalid Request Parameters", BAD_REQUEST_ERROR );
 		}
-		$answer     = $request['user_response'];
+		$answer     = stripslashes( $request['user_response'] );
 		$email      = $request['user_email'];
 		$evaluation = $request['score'];
 

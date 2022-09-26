@@ -8,6 +8,8 @@ jQuery(document).ready(($) => {
         const scoring = $("#scoring");
 
         // TODO: validate form inputs
+        
+
 
         // Submit form to RESTful API
         $.ajax({

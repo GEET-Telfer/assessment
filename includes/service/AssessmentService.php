@@ -61,8 +61,8 @@ class AssessmentService {
 	}
 
 	private static function parseRequest( $request ): AssessmentQuestion {
-		if ( ! self::isSubset( $request, [ 'component', 'description', 'hasNA', 'scoring' ] ) ) {
-			throw new Exception( "Invalid Request Parameters" );
+		if ( ! self::isSubset( $request, ASSESSMENT_QUESTION_PARAMS ) ) {
+			throw new Exception( "Invalid Request Parameters" , BAD_REQUEST_ERROR);
 		}
 
 		$component   = $request['component'];

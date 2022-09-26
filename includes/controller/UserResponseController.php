@@ -5,6 +5,7 @@ ini_set( 'display_errors', '1' );
 ini_set( 'display_startup_errors', '1' );
 error_reporting( E_ALL );
 require_once( ABSPATH . 'wp-content/plugins/assessment/includes/service/UserResponseService.php' );
+require_once( ABSPATH . 'wp-content/plugins/assessment/includes/constant/constant.php' );
 
 /**
  * @return void
@@ -16,26 +17,38 @@ function createUserResponse(): void {
 		try {
 			$wpdb->query( 'START TRANSACTION' );
 			$result = UserResponseService::createUserResponse( $_POST );
-
 			// send wp_mail
 			$to      = "wzlpuck@gmail.com";
 			$subject = "test";
 			$message = [
-				"user-response" => json_decode( $_POST['user_response'] ),
+				"user_response" => stripslashes( $_POST['user_response'] ),
 				"evaluation"    => $_POST['score']
 			];
 
-			$sent = wp_mail( $to, $subject, print_r( $message ) );
+			$sent = wp_mail( $to, $subject, compileEmailMessage( $message ) );
 			if ( $sent ) {
 				$wpdb->query( 'COMMIT' );
 			} else {
-				$wpdb->query( 'ROLLBACK' );
-				wp_send_json_error("Something wrong with the server.", 500);
+				$wpdb->query( 'ROLLBACK' ); // failed to send email due to internal problems
+				wp_send_json_error( "Something wrong with the server.", INTERNAL_SERVER_ERROR );
 			}
 		} catch ( Exception $e ) {
-			echo "Caught exception: " . $e->getMessage() . "\n";
-			wp_send_json_error($e->getMessage(), 422);
+			$wpdb->query( 'ROLLBACK' ); // rollback before sending email.
+			wp_send_json_error( $e->getMessage(), $e->getCode() );
+		} finally {
+			$wpdb->close();
 		}
 	}
 	die();
+}
+
+/**
+ * TODO: display summaries with html tags
+ *
+ * @param $message
+ *
+ * @return bool|string
+ */
+function compileEmailMessage( $message ) {
+	return print_r( $message, true );
 }

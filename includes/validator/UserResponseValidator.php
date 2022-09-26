@@ -3,19 +3,17 @@ require_once( ABSPATH . 'wp-content/plugins/assessment/includes/validator/BaseVa
 
 class UserResponseValidator extends BaseValidator {
 
-	public function __construct() {
-	}
-
-
 	public function isUserResponse( $content, $message = "Invalid User Response." ) {
 		parent::isRequired( $content, $message );
+		if ( ! is_array( json_decode( $content ) ) || count( json_decode( $content ) ) === 0 ) {
+			throw new Exception( $message, UNPROCESSABLE_ENTITY_ERROR );
+		}
 	}
 
-	public function isScore( $content, $message = "Invalid Evaluation" ) {
+	public function isScore( $content, $message = "Invalid Evaluation." ) {
 		parent::isRequired( $content, $message );
-		$evaluation = [ 'low', 'some', 'moderate', 'high' ];
-		if ( ! in_array( $content, $evaluation, true ) ) {
-			throw new Exception( $message );
+		if ( ! in_array( $content, EVALUATION, true ) ) {
+			throw new Exception( $message, UNPROCESSABLE_ENTITY_ERROR );
 		}
 	}
 

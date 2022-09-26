@@ -4,6 +4,7 @@ ini_set( 'display_errors', '1' );
 ini_set( 'display_startup_errors', '1' );
 error_reporting( E_ALL );
 require_once( ABSPATH . 'wp-content/plugins/assessment/includes/service/AssessmentService.php' );
+require_once( ABSPATH . 'wp-content/plugins/assessment/includes/constant/constant.php' );
 
 /**
  * @return void
@@ -14,8 +15,7 @@ function createAssessmentQuestion(): void {
 			$result = AssessmentService::createAssessmentQuestion( $_POST );
 			echo $result;
 		} catch ( Exception $e ) {
-			echo "Caught exception: " . $e->getMessage() . "\n";
-			wp_send_json_error( $e->getMessage(), 422 );
+			wp_send_json_error( $e->getMessage(), UNPROCESSABLE_ENTITY_ERROR );
 		}
 	}
 	die();
