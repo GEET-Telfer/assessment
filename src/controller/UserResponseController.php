@@ -4,8 +4,8 @@ declare( strict_types=1 );
 ini_set( 'display_errors', '1' );
 ini_set( 'display_startup_errors', '1' );
 error_reporting( E_ALL );
-require_once( ABSPATH . 'wp-content/plugins/assessment/includes/service/UserResponseService.php' );
-require_once( ABSPATH . 'wp-content/plugins/assessment/includes/constant/constant.php' );
+require_once( ABSPATH . 'wp-content/plugins/assessment/src/service/UserResponseService.php' );
+require_once( ABSPATH . 'wp-content/plugins/assessment/src/constant/constant.php' );
 
 /**
  * @return void

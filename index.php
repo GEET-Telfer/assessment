@@ -16,11 +16,11 @@ register_activation_hook( __FILE__, 'init_table_team' );
 
 require_once( 'utils/rest_config.php' ); // define RESTful endpoints for Assessment Question
 
-require_once( 'includes/controller/AssessmentController.php' );
+require_once('src/controller/AssessmentController.php');
 add_action( 'wp_ajax_create_assessment_question', 'createAssessmentQuestion' );
 add_action( 'wp_ajax_find_all_assessment_question', 'findAllAssessmentQuestion' );
 
-require_once( 'includes/controller/UserResponseController.php' );
+require_once('src/controller/UserResponseController.php');
 add_action( 'wp_ajax_create_user_response', 'createUserResponse' );
 
 require_once( 'utils/admin_ui.php' );

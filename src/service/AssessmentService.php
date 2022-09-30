@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
-require_once( ABSPATH . 'wp-content/plugins/assessment/includes/entity/AssessmentQuestion.php' );
-require_once( ABSPATH . 'wp-content/plugins/assessment/includes/validator/AssessmentQuestionValidator.php' );
+require_once( ABSPATH . 'wp-content/plugins/assessment/src/entity/AssessmentQuestion.php' );
+require_once( ABSPATH . 'wp-content/plugins/assessment/src/validator/AssessmentQuestionValidator.php' );
 
 class AssessmentService {
 	private static string $tableName = 'assessment';

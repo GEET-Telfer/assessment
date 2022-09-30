@@ -1,5 +1,5 @@
 <?php
-require_once( ABSPATH . 'wp-content/plugins/assessment/includes/validator/BaseValidator.php' );
+require_once( ABSPATH . 'wp-content/plugins/assessment/src/validator/BaseValidator.php' );
 
 class AssessmentQuestionValidator extends BaseValidator {
 

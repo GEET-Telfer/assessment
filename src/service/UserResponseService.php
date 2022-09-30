@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
-require_once( ABSPATH . 'wp-content/plugins/assessment/includes/entity/UserResponse.php' );
-require_once( ABSPATH . 'wp-content/plugins/assessment/includes/validator/UserResponseValidator.php' );
+require_once( ABSPATH . 'wp-content/plugins/assessment/src/entity/UserResponse.php' );
+require_once( ABSPATH . 'wp-content/plugins/assessment/src/validator/UserResponseValidator.php' );
 
 class UserResponseService {
 	private static string $tableName = "user_response";
