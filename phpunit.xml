@@ -1,0 +1,27 @@
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.0/phpunit.xsd"
+        backupGlobals="true"
+        bootstrap="vendor/autoload.php"
+        colors="true"
+        failOnWarning="true"
+        failOnRisky="true"
+        processIsolation="true"
+        verbose="true">
+
+    <php>
+        <ini name="error_reporting" value="-1"/>
+        <ini name="display_errors" value="On"/>
+
+        <var name="DB_DSN" value="mysql:dbname=wordpress;host=localhost" />
+        <var name="DB_USER" value="wordpress" />
+        <var name="DB_PASSWD" value="password" />
+        <var name="DB_DBNAME" value="wordpress" />
+    </php>
+
+    <testsuites>
+        <testsuite name="Unit Test Suite">
+            <directory>./test/unit</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
