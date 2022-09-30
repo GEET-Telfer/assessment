@@ -1,5 +1,6 @@
 <?php
-require_once( ABSPATH . 'wp-content/plugins/assessment/src/interface/Builder.php' );
+//require_once( ABSPATH . 'wp-content/plugins/assessment/src/interface/Builder.php' );
+require_once(__DIR__."/../interface/Builder.php");
 
 use Builder\AssessmentBuilder as Builder;
 

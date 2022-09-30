@@ -1,5 +1,6 @@
 <?php
-require_once( ABSPATH . 'wp-content/plugins/assessment/src/validator/BaseValidator.php' );
+//require_once( ABSPATH . 'wp-content/plugins/assessment/src/validator/BaseValidator.php' );
+require_once(__DIR__."/../validator/BaseValidator.php");
 
 class AssessmentQuestionValidator extends BaseValidator {
 
@@ -16,14 +17,14 @@ class AssessmentQuestionValidator extends BaseValidator {
 
 	public function isHasNA( $content, $message = "Invalid HasNA." ) {
 		if ( ! in_array( $content, NA_LIST ) ) {
-			throw new Exception( $message );
+			throw new Exception( $message, UNPROCESSABLE_ENTITY_ERROR );
 		}
 	}
 
 	public function isScoring( $content, $message = "Invalid Scoring." ) {
 		parent::isRequired( $content, $message );
-		if ( ! is_numeric( $content ) ) {
-			throw new Exception( $message );
+		if ( ! is_numeric( $content ) || $content <= 0) {
+			throw new Exception( $message, UNPROCESSABLE_ENTITY_ERROR );
 		}
 	}
 }

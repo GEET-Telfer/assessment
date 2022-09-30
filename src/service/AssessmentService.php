@@ -1,8 +1,10 @@
 <?php
 declare( strict_types=1 );
-require_once( ABSPATH . 'wp-content/plugins/assessment/src/entity/AssessmentQuestion.php' );
-require_once( ABSPATH . 'wp-content/plugins/assessment/src/validator/AssessmentQuestionValidator.php' );
+//require_once( ABSPATH . 'wp-content/plugins/assessment/src/entity/AssessmentQuestion.php' );
+//require_once( ABSPATH . 'wp-content/plugins/assessment/src/validator/AssessmentQuestionValidator.php' );
 
+require_once(__DIR__."/../entity/AssessmentQuestion.php");
+require_once(__DIR__."/../validator/AssessmentQuestionValidator.php");
 class AssessmentService {
 	private static string $tableName = 'assessment';
 

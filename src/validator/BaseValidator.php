@@ -1,6 +1,8 @@
 <?php
-require_once( ABSPATH . 'wp-content/plugins/assessment/src/interface/Validator.php' );
-require_once( ABSPATH . 'wp-content/plugins/assessment/src/constant/constant.php' );
+//require_once( ABSPATH . 'wp-content/plugins/assessment/src/interface/Validator.php' );
+//require_once( ABSPATH . 'wp-content/plugins/assessment/src/constant/constant.php' );
+require_once(__DIR__."/../interface/Validator.php");
+require_once(__DIR__."/../constant/constant.php");
 
 use Validator\Validator;
 

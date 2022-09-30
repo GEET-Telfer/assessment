@@ -1,5 +1,6 @@
 <?php
-require_once( ABSPATH . 'wp-content/plugins/assessment/src/validator/BaseValidator.php' );
+//require_once( ABSPATH . 'wp-content/plugins/assessment/src/validator/BaseValidator.php' );
+require_once(__DIR__."/../validator/BaseValidator.php");
 
 class UserResponseValidator extends BaseValidator {
 
