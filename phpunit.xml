@@ -24,4 +24,11 @@
             <directory>./tests/unit</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./tests/unit</directory>
+            <file>./tests/unit</file>
+        </whitelist>
+    </filter>
 </phpunit>
