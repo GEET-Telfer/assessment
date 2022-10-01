@@ -1,5 +1,4 @@
 vendor/
 coverage.txt
-composer.lock
 .phpunit*
 .idea
