@@ -7,8 +7,8 @@ error_reporting( E_ALL );
 //require_once( ABSPATH . 'wp-content/plugins/assessment/src/service/UserResponseService.php' );
 //require_once( ABSPATH . 'wp-content/plugins/assessment/src/constant/constant.php' );
 
-require_once(dirname(__FILE__)."/../service/UserResponseService.php");
-require_once(dirname(__FILE__)."/../constant/constant.php");
+require_once( dirname( __FILE__ ) . "/../service/UserResponseService.php" );
+require_once( dirname( __FILE__ ) . "/../constant/constant.php" );
 /**
  * @return void
  */
@@ -23,13 +23,15 @@ function createUserResponse(): void {
 			// send wp_mail
 			$to      = $_POST['user_email'];
 			$subject = "GEET Assessment Report";
-			$message = [
-				"user_response" => stripslashes( $_POST['user_response'] ),
-				"evaluation"    =>  $_POST['score']
-			];
+			$message = stripslashes( $_POST['report'] );
 
+			function set_html_content_type() {
+				return "text/html";
+			}
+			
+			add_filter( "wp_mail_content_type", "set_html_content_type" );
 			$sent = wp_mail( $to, $subject, compileEmailMessage( $message ) );
-			print_r( $sent);
+			remove_filter( "wp_mail_content_type", "set_html_content_type" );
 			if ( $sent ) {
 				$wpdb->query( 'COMMIT' );
 			} else {
@@ -52,5 +54,42 @@ function createUserResponse(): void {
  * @return bool|string
  */
 function compileEmailMessage( $message ) {
-	return print_r( $message, true );
+
+	$reportObj = json_decode( $message, true );
+
+	$reportMessage = "";
+	foreach ( $reportObj as $key => $value ) {
+		$reportMessage = $reportMessage . "<div>${key}: <span class=${value}>${value}</span></div><br>";
+	}
+
+	return "
+	<!DOCTYPE html>
+<html>
+<head>
+<style>
+span {
+  display: inline; /* the default for span */
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+}
+span.PASS {
+  background-color: lightblue; 
+}
+span.OK {
+  background-color: green; 
+
+}
+span.WARNING {
+  background-color: orangered; 
+
+}
+</style>
+</head>
+<body>
+<h1>Report:</h1>
+${reportMessage}
+</body>
+</html>
+";
 }
