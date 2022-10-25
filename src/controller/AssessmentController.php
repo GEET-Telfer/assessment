@@ -40,8 +40,13 @@ function updateAssessmentQuestion(): void {
  */
 function deleteAssessmentQuestion(): void {
 	if ( isset( $_POST ) ) {
-		$result = AssessmentService::deleteAssessmentQuestion( $_POST );
-		echo $result;
+		try {
+			$result = AssessmentService::deleteAssessmentQuestion( $_POST );
+			echo $result;
+		} catch ( Exception $e ) {
+			echo $e->getMessage();
+			wp_send_json_error( $e->getMessage(), UNPROCESSABLE_ENTITY_ERROR );
+		}
 	}
 	die();
 }
