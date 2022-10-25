@@ -15,7 +15,7 @@ define( "COMPONENT_LIST", [
 ] );
 define( "ASSESSMENT_QUESTION_PARAMS", [ 'component', 'description', 'hasNA', 'scoring' ] );
 define( "USER_RESPONSE_PARAMS", [ 'user_response', 'user_email', 'score' ] );
-define( "EVALUATION", [ 'low', 'some', 'moderate', 'high' ] );
+define( "EVALUATION", [ "WARNING", "OK", "PASS"] );
 define( "NA_LIST", [ "", "0", "1" ] );
 
 // ANYTHING ELSE

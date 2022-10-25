@@ -1,6 +1,6 @@
 <?php
 //require_once( ABSPATH . 'wp-content/plugins/assessment/src/interface/Builder.php' );
-require_once(__DIR__."/../interface/Builder.php");
+require_once( __DIR__ . "/../interface/Builder.php" );
 
 use Builder\BaseBuilder;
 use Builder\UserResponseBuilder as Builder;
@@ -38,12 +38,19 @@ class UserResponseBuilder implements Builder {
 
 		return $this;
 	}
+
+	public function report( $report ): Builder {
+		$this->userResponse->setReport( $report );
+
+		return $this;
+	}
 }
 
 class UserResponse {
 	private ?string $answer = null;
 	private ?string $userEmail = null;
 	private ?string $score = null;
+	private ?string $report = null;
 
 	/**
 	 * @param string $answer
@@ -66,6 +73,10 @@ class UserResponse {
 		$this->score = $score;
 	}
 
+	public function setReport( string $report ): void {
+		$this->report = $report;
+	}
+
 	public function __construct() {
 	}
 
@@ -76,7 +87,8 @@ class UserResponse {
 		return [
 			'user_email' => $this->userEmail,
 			'responses'  => $this->answer,
-			'score'      => $this->score
+			'score'      => $this->score,
+			'report'     => $this->report
 		];
 	}
 }

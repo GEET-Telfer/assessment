@@ -3,8 +3,8 @@ declare( strict_types=1 );
 //require_once( ABSPATH . 'wp-content/plugins/assessment/src/entity/UserResponse.php' );
 //require_once( ABSPATH . 'wp-content/plugins/assessment/src/validator/UserResponseValidator.php' );
 
-require_once(__DIR__."/../entity/UserResponse.php");
-require_once(__DIR__."/../validator/UserResponseValidator.php");
+require_once( __DIR__ . "/../entity/UserResponse.php" );
+require_once( __DIR__ . "/../validator/UserResponseValidator.php" );
 
 class UserResponseService {
 	private static string $tableName = "user_response";
@@ -44,16 +44,19 @@ class UserResponseService {
 		$answer     = stripslashes( $request['user_response'] );
 		$email      = $request['user_email'];
 		$evaluation = $request['score'];
+		$report     = stripslashes( $request['report'] );
 
 		$validator = new UserResponseValidator();
 		$validator->isUserResponse( $answer );
 		$validator->isUserEmail( $email );
 		$validator->isScore( $evaluation );
+		$validator->isReport( $report );
 
 		$obj = UserResponseBuilder::init()
 		                          ->answer( $answer )
 		                          ->userEmail( $email )
-		                          ->score( $evaluation );
+		                          ->score( $evaluation )
+		                          ->report( $report );
 
 		return $obj->build();
 	}

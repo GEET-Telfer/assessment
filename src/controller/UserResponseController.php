@@ -19,26 +19,26 @@ function createUserResponse(): void {
 		try {
 			$wpdb->query( 'START TRANSACTION' );
 			$result = UserResponseService::createUserResponse( $_POST );
+
 			// send wp_mail
-			$to      = "wzlpuck@gmail.com";
-			$subject = "test";
+			$to      = $_POST['user_email'];
+			$subject = "GEET Assessment Report";
 			$message = [
 				"user_response" => stripslashes( $_POST['user_response'] ),
-				"evaluation"    => $_POST['score']
+				"evaluation"    =>  $_POST['score']
 			];
 
 			$sent = wp_mail( $to, $subject, compileEmailMessage( $message ) );
+			print_r( $sent);
 			if ( $sent ) {
 				$wpdb->query( 'COMMIT' );
 			} else {
 				$wpdb->query( 'ROLLBACK' ); // failed to send email due to internal problems
-				wp_send_json_error( "Something wrong with the server.", INTERNAL_SERVER_ERROR );
+				throw new Exception( "Something wrong with the server.", INTERNAL_SERVER_ERROR );
 			}
 		} catch ( Exception $e ) {
 			$wpdb->query( 'ROLLBACK' ); // rollback before sending email.
 			wp_send_json_error( $e->getMessage(), $e->getCode() );
-		} finally {
-			$wpdb->close();
 		}
 	}
 	die();

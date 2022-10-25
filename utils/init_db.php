@@ -39,7 +39,8 @@ function init_table_user_response(): void {
 		id INT UNSIGNED AUTO_INCREMENT,
 		user_email VARCHAR(255),
 		responses TEXT,
-		score ENUM('low', 'some', 'moderate', 'high'),
+		score ENUM('WARNING', 'OK', 'PASS'),
+		report TEXT,
 		PRIMARY KEY (id)
 	) ";
 
