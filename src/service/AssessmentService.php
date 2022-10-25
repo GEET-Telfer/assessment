@@ -48,17 +48,15 @@ class AssessmentService {
 	}
 
 	public static function deleteAssessmentQuestion( $request ) {
-		// NOTE: expecting hidden input with assessmentId
 		if ( ! isset( $request['id'] ) ) {
 			return false;
 		}
-		$obj = self::parseRequest( $request );
 
 		global $wpdb;
 
 		return $wpdb->delete(
 			$wpdb->prefix . self::$tableName,
-			$request['Id']
+			array('id' => $request['id'])
 		);
 	}
 

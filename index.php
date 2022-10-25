@@ -19,6 +19,8 @@ require_once( 'utils/rest_config.php' ); // define RESTful endpoints for Assessm
 require_once('src/controller/AssessmentController.php');
 add_action( 'wp_ajax_create_assessment_question', 'createAssessmentQuestion' );
 add_action( 'wp_ajax_find_all_assessment_question', 'findAllAssessmentQuestion' );
+add_action( 'wp_ajax_delete_assessment_question', 'deleteAssessmentQuestion' );
+
 
 require_once('src/controller/UserResponseController.php');
 add_action( 'wp_ajax_create_user_response', 'createUserResponse' );
