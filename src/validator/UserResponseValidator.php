@@ -6,9 +6,9 @@ class UserResponseValidator extends BaseValidator {
 
 	public function isUserResponse( $content, $message = "Invalid User Response." ) {
 		parent::isRequired( $content, $message );
-//		if ( ! is_array( json_decode( $content ) ) || count( json_decode( $content ) ) === 0 ) {
-//			throw new Exception( $message, UNPROCESSABLE_ENTITY_ERROR );
-//		}
+		if ( !is_string($content) || ! is_array( json_decode( $content, true ) )) {
+			throw new Exception( $message, UNPROCESSABLE_ENTITY_ERROR );
+		}
 	}
 
 	public function isScore( $content, $message = "Invalid Evaluation." ) {
@@ -24,5 +24,8 @@ class UserResponseValidator extends BaseValidator {
 
 	public function isReport($content, $message = "Invalid User Report.") {
 		parent::isRequired( $content, $message );
+		if ( !is_string($content) || ! is_array( json_decode( $content, true ) )) {
+			throw new Exception( $message, UNPROCESSABLE_ENTITY_ERROR );
+		}
 	}
 }

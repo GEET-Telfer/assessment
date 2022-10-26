@@ -7,112 +7,124 @@ use PHPUnit\Framework\TestCase;
 
 require_once(dirname(__FILE__) . "/../../src/constant/constant.php");
 
-final class UserResponseServiceTest extends TestCase
-{
+final class UserResponseServiceTest extends TestCase {
 
-    /**
-     *Empty Request
-     */
-    public function testUserResponseServiceShouldThrowBadRequestErrorWithEmptyRequest(): void
-    {
-        $this->expectExceptionCode(BAD_REQUEST_ERROR);
-        UserResponseService::createUserResponse($_POST);
-    }
+	/**
+	 * With empty request body, UserResponseService should throw BAD_REQUEST_ERROR
+	 */
+	public function test_UserResponseService_should_throw_BadRequestError_with_EmptyRequest(): void {
+		$this->expectExceptionCode( BAD_REQUEST_ERROR );
+		UserResponseService::createUserResponse( $_POST );
+	}
 
-    /**
-     * Empty User Response
-     * @return void
-     * @throws Exception
-     */
-    public function testUserResponseServiceShouldThrowUnprocessableEntityErrorWithEmptyUserResponse(): void
-    {
-        $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
+	/**
+	 * With empty user response, UserResponseService should throw UNPROCESSABLE_ENTITY_ERROR
+	 * @return void
+	 * @throws Exception
+	 */
+	public function test_UserResponseService_should_throw_UnprocessableEntityError_with_EmptyUserResponse(): void {
+		$this->expectExceptionCode( UNPROCESSABLE_ENTITY_ERROR );
 
-        $_POST['user_response'] = "";
-        $_POST['user_email'] = "abc@gmail.com";
-        $_POST['score'] = "low";
+		$_POST['user_response'] = "";
+		$_POST['user_email']    = "abc@gmail.com";
+		$_POST['score']         = "low";
+		$_POST['report']        = "[{}]";
 
-        UserResponseService::createUserResponse($_POST);
-    }
+		UserResponseService::createUserResponse( $_POST );
+	}
 
-    /**
-     * Invalid Format of User Response
-     * @return void
-     * @throws Exception
-     */
-    public function testUserResponseServiceShouldThrowUnprocessableEntityErrorWithInvalidUserResponseType(): void
-    {
-        $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
+	/**
+	 * With non-JSON array user response, UserResponseService should throw UNPROCESSABLE_ENTITY_ERROR
+	 * @return void
+	 * @throws Exception
+	 */
+	public function test_UserResponseService_should_throw_UnprocessableEntityError_with_InvalidUserResponseType(): void {
+		$this->expectExceptionCode( UNPROCESSABLE_ENTITY_ERROR );
 
-        $_POST['user_response'] = "should not pass";
-        $_POST['user_email'] = "abc@gmail.com";
-        $_POST['score'] = "low";
+		$_POST['user_response'] = "should not pass";
+		$_POST['user_email']    = "abc@gmail.com";
+		$_POST['score']         = "PASS";
+		$_POST['report']        = "[{}]";
 
-        UserResponseService::createUserResponse($_POST);
-    }
+		UserResponseService::createUserResponse( $_POST );
+	}
 
-    /**
-     * Empty Email
-     * @return void
-     * @throws Exception
-     */
-    public function testUserResponseServiceShouldThrowUnprocessableEntityErrorWithEmptyUserEmail(): void
-    {
-        $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
+	/**
+	 * With empty user email, UserResponseService should throw UNPROCESSABLE_ENTITY_ERROR
+	 * @return void
+	 * @throws Exception
+	 */
+	public function test_UserResponseService_should_throw_UnprocessableEntityError_with_EmptyUserEmail(): void {
+		$this->expectExceptionCode( UNPROCESSABLE_ENTITY_ERROR );
 
-        $_POST['user_response'] = "[{}]";
-        $_POST['user_email'] = "";
-        $_POST['score'] = "low";
+		$_POST['user_response'] = "[{}]";
+		$_POST['user_email']    = "";
+		$_POST['score']         = "OK";
+		$_POST['report']        = "[{}]";
 
-        UserResponseService::createUserResponse($_POST);
-    }
+		UserResponseService::createUserResponse( $_POST );
+	}
 
-    /**
-     * Not Email
-     * @return void
-     * @throws Exception
-     */
-    public function testUserResponseServiceShouldThrowUnprocessableEntityErrorWithInvalidUserEmailFormat(): void
-    {
-        $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
+	/**
+	 * With an invalid email format, UserResponseService should throw UNPROCESSABLE_ENTITY_ERROR
+	 * @return void
+	 * @throws Exception
+	 */
+	public function test_UserResponseService_should_throw_UnprocessableEntityError_with_InvalidUserEmailFormat(): void {
+		$this->expectExceptionCode( UNPROCESSABLE_ENTITY_ERROR );
 
-        $_POST['user_response'] = "[{}]";
-        $_POST['user_email'] = "123456";
-        $_POST['score'] = "low";
+		$_POST['user_response'] = "[{}]";
+		$_POST['user_email']    = "123456";
+		$_POST['score']         = "OK";
+		$_POST['report']        = "[{}]";
 
-        UserResponseService::createUserResponse($_POST);
-    }
+		UserResponseService::createUserResponse( $_POST );
+	}
 
-    /**
-     * Empty Score
-     * @return void
-     * @throws Exception
-     */
-    public function testUserResponseServiceShouldThrowUnprocessableEntityErrorWithEmptyScore(): void
-    {
-        $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
+	/**
+	 * With empty score, UserResponseService should throw UNPROCESSABLE_ENTITY_ERROR
+	 * @return void
+	 * @throws Exception
+	 */
+	public function test_UserResponseService_should_throw_UnprocessableEntityError_with_EmptyScore(): void {
+		$this->expectExceptionCode( UNPROCESSABLE_ENTITY_ERROR );
 
-        $_POST['user_response'] = "[{}]";
-        $_POST['user_email'] = "abc@gmail.com";
-        $_POST['score'] = "";
+		$_POST['user_response'] = "[{}]";
+		$_POST['user_email']    = "abc@gmail.com";
+		$_POST['score']         = "";
+		$_POST['report']        = "[{}]";
 
-        UserResponseService::createUserResponse($_POST);
-    }
+		UserResponseService::createUserResponse( $_POST );
+	}
 
-    /**
-     * Unexpected score value
-     * @return void
-     * @throws Exception
-     */
-    public function testUserResponseServiceShouldThrowUnprocessableEntityErrorWithScoreEnumNotPresent(): void
-    {
-        $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
+	/**
+	 * With not-enum type score, UserResponseService should throw UNPROCESSABLE_ENTITY_ERROR
+	 * @return void
+	 * @throws Exception
+	 */
+	public function test_UserResponseService_should_throw_UnprocessableEntityError_with_ScoreEnumNotPresent(): void {
+		$this->expectExceptionCode( UNPROCESSABLE_ENTITY_ERROR );
 
-        $_POST['user_response'] = "[{}]";
-        $_POST['user_email'] = "abc@gmail.com";
-        $_POST['score'] = "something else";
+		$_POST['user_response'] = "[{}]";
+		$_POST['user_email']    = "abc@gmail.com";
+		$_POST['score']         = "something else";
+		$_POST['report']        = "[{}]";
 
-        UserResponseService::createUserResponse($_POST);
-    }
+		UserResponseService::createUserResponse( $_POST );
+	}
 
+
+	/**
+	 * With empty report, UserResponseService should throw UNPROCESSABLE_ENTITY_ERROR
+	 */
+	public function test_UserResponseService_should_throw_UnprocessableEntityError_with_EmptyReport(): void {
+		$this->expectExceptionCode( UNPROCESSABLE_ENTITY_ERROR );
+
+		$_POST['user_response'] = "[{}]";
+		$_POST['user_email']    = "abc@gmail.com";
+		$_POST['score']         = "PASS";
+		$_POST['report']        = "";
+
+		UserResponseService::createUserResponse( $_POST );
+	}
 }
