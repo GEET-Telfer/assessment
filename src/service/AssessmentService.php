@@ -1,10 +1,9 @@
 <?php
 declare( strict_types=1 );
-//require_once( ABSPATH . 'wp-content/plugins/assessment/src/entity/AssessmentQuestion.php' );
-//require_once( ABSPATH . 'wp-content/plugins/assessment/src/validator/AssessmentQuestionValidator.php' );
 
-require_once(__DIR__."/../entity/AssessmentQuestion.php");
-require_once(__DIR__."/../validator/AssessmentQuestionValidator.php");
+require_once( __DIR__ . "/../entity/AssessmentQuestion.php" );
+require_once( __DIR__ . "/../validator/AssessmentQuestionValidator.php" );
+
 class AssessmentService {
 	private static string $tableName = 'assessment';
 
@@ -23,46 +22,12 @@ class AssessmentService {
 
 		$data = $obj->toArray();
 
-		return $wpdb->insert(
-			$wpdb->prefix . self::$tableName,
-			$data
-		);
-	}
-
-	public static function updateAssessmentQuestion( $request ) {
-		// NOTE: expecting hidden input with assessmentId
-		if ( ! isset( $request['id'] ) ) {
-			return false;
-		}
-		$obj = self::parseRequest( $request );
-
-		global $wpdb;
-
-		$data = $obj->toArray();
-
-		return $wpdb->update(
-			$wpdb->prefix . self::$tableName,
-			$data,
-			$request['Id']
-		);
-	}
-
-	public static function deleteAssessmentQuestion( $request ) {
-		if ( ! isset( $request['id'] ) ) {
-			return false;
-		}
-
-		global $wpdb;
-
-		return $wpdb->delete(
-			$wpdb->prefix . self::$tableName,
-			array('id' => $request['id'])
-		);
+		return $wpdb->insert( $wpdb->prefix . self::$tableName, $data );
 	}
 
 	private static function parseRequest( $request ): AssessmentQuestion {
 		if ( ! self::isSubset( $request, ASSESSMENT_QUESTION_PARAMS ) ) {
-			throw new Exception( "Invalid Request Parameters" , BAD_REQUEST_ERROR);
+			throw new Exception( "Invalid Request Parameters", UNPROCESSABLE_ENTITY_ERROR );
 		}
 
 		$component   = $request['component'];
@@ -101,5 +66,29 @@ class AssessmentService {
 		}
 
 		return true;
+	}
+
+	public static function updateAssessmentQuestion( $request ) {
+		// NOTE: expecting hidden input with assessmentId
+		if ( ! isset( $request['id'] ) ) {
+			throw new Exception( "Missing question id.", UNPROCESSABLE_ENTITY_ERROR );
+		}
+		$obj = self::parseRequest( $request );
+
+		global $wpdb;
+
+		$data = $obj->toArray();
+
+		return $wpdb->update( $wpdb->prefix . self::$tableName, $data, $request['id'] );
+	}
+
+	public static function deleteAssessmentQuestion( $request ) {
+		if ( ! isset( $request['id'] ) ) {
+			throw new Exception( "Missing question id.", UNPROCESSABLE_ENTITY_ERROR );
+		}
+
+		global $wpdb;
+
+		return $wpdb->delete( $wpdb->prefix . self::$tableName, array( 'id' => $request['id'] ) );
 	}
 }
