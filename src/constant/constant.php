@@ -3,6 +3,7 @@
 define( "BAD_REQUEST_ERROR", 400 );
 define( "UNPROCESSABLE_ENTITY_ERROR", 422 );
 define( "INTERNAL_SERVER_ERROR", 500 );
+define("METHDO_NOT_ALLOWED", 405);
 // ENTITY ENUMS
 define( "COMPONENT_LIST", [
 	"Commitment to Equity, Diversity & Inclusion",
