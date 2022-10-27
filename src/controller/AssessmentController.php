@@ -17,7 +17,7 @@ function createAssessmentQuestion(): void {
 			throw new Exception( "Invalid Request Method", METHDO_NOT_ALLOWED );
 		}
 		$result = AssessmentService::createAssessmentQuestion( $_POST );
-		echo $result;
+		wp_send_json($result);
 	} catch ( Exception $e ) {
 		wp_send_json_error( $e->getMessage(), $e->getCode() );
 	} finally {
@@ -35,7 +35,7 @@ function updateAssessmentQuestion(): void {
 			throw new Exception( "Invalid Request Method", METHDO_NOT_ALLOWED );
 		}
 		$result = AssessmentService::updateAssessmentQuestion( $_POST );
-		echo $result;
+		wp_send_json($result);
 	} catch ( Exception $e ) {
 		echo $e->getMessage();
 		wp_send_json_error( $e->getMessage(), $e->getCode() );
@@ -54,7 +54,7 @@ function deleteAssessmentQuestion(): void {
 			throw new Exception( "Invalid Request Method", METHDO_NOT_ALLOWED );
 		}
 		$result = AssessmentService::deleteAssessmentQuestion( $_POST );
-		echo $result;
+		wp_send_json($result);
 	} catch ( Exception $e ) {
 		echo $e->getMessage();
 		wp_send_json_error( $e->getMessage(), $e->getCode() );
@@ -67,15 +67,14 @@ function deleteAssessmentQuestion(): void {
  * Fetch all the assessment questions.
  * @return void
  */
-function findAllAssessmentQuestion(): void {
+function findAllAssessmentQuestion() {
 	try {
 		if ( ! isset( $_GET ) ) {
 			throw new Exception( "Invalid Request Method", METHDO_NOT_ALLOWED );
 		}
 		$result = AssessmentService::findAllAssessmentQuestion();
-		echo $result;
+		wp_send_json($result);
 	} catch ( Exception $e ) {
-		echo $e->getMessage();
 		wp_send_json_error( $e->getMessage(), $e->getCode() );
 	} finally {
 		die();
