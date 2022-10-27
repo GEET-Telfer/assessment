@@ -21,7 +21,8 @@ function createAssessmentQuestion(): void {
 	} catch ( Exception $e ) {
 		wp_send_json_error( $e->getMessage(), $e->getCode() );
 	} finally {
-		die();
+		global $wpdb;
+		$wpdb->close();
 	}
 }
 
@@ -37,10 +38,10 @@ function updateAssessmentQuestion(): void {
 		$result = AssessmentService::updateAssessmentQuestion( $_POST );
 		wp_send_json($result);
 	} catch ( Exception $e ) {
-		echo $e->getMessage();
 		wp_send_json_error( $e->getMessage(), $e->getCode() );
 	} finally {
-		die();
+		global $wpdb;
+		$wpdb->close();
 	}
 }
 
@@ -56,10 +57,10 @@ function deleteAssessmentQuestion(): void {
 		$result = AssessmentService::deleteAssessmentQuestion( $_POST );
 		wp_send_json($result);
 	} catch ( Exception $e ) {
-		echo $e->getMessage();
 		wp_send_json_error( $e->getMessage(), $e->getCode() );
 	} finally {
-		die();
+		global $wpdb;
+		$wpdb->close();
 	}
 }
 
@@ -77,6 +78,7 @@ function findAllAssessmentQuestion() {
 	} catch ( Exception $e ) {
 		wp_send_json_error( $e->getMessage(), $e->getCode() );
 	} finally {
-		die();
+		global $wpdb;
+		$wpdb->close();
 	}
 }
