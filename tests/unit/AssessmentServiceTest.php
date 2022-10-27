@@ -13,10 +13,10 @@ final class AssessmentServiceTest extends TestCase
     /**
      *Throw BAD REQUEST ERROR when having empty data
      */
-    public function testAssessmentShouldThrowBadRequestErrorWithEmptyRequest(): void
+    public function test_createAssessmentService_should_throw_BadRequestError_withEmptyRequest(): void
     {
 
-        $this->expectExceptionCode(BAD_REQUEST_ERROR);
+        $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
         AssessmentService::createAssessmentQuestion($_POST);
     }
 
@@ -24,7 +24,7 @@ final class AssessmentServiceTest extends TestCase
      * Throw UNPROCESSABLE_ENTITY_ERROR when having an empty component
      * @return void
      */
-    public function testAssessmentShouldThrowUnprocessableEntityErrorWithEmptyComponent(): void
+    public function test_createAssessmentService_should_throw_UnprocessableEntityError_withEmptyComponent(): void
     {
         $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
 
@@ -39,7 +39,7 @@ final class AssessmentServiceTest extends TestCase
      * Throw UNPROCESSABLE_ENTITY_ERROR when having an invalid component option
      * @return void
      */
-    public function testAssessmentShouldThrowUnprocessableEntityErrorWithEnumNotPresent(): void
+    public function test_createAssessmentService_should_throw_UnprocessableEntityError_withEnumNotPresent(): void
     {
         $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
 
@@ -54,7 +54,7 @@ final class AssessmentServiceTest extends TestCase
      * Throw UNPROCESSABLE_ENTITY_ERROR when having an empty description
      * @return void
      */
-    public function testAssessmentShouldThrowUnprocessableEntityErrorWithEmptyDescription(): void
+    public function test_createAssessmentService_should_throw_UnprocessableEntityError_withEmptyDescription(): void
     {
         $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
 
@@ -69,7 +69,7 @@ final class AssessmentServiceTest extends TestCase
      * Throw UNPROCESSABLE_ENTITY_ERROR when having invalid hasNA
      * @return void
      */
-    public function testAssessmentShouldThrowUnprocessableEntityErrorWithInvalidHasNA(): void
+    public function test_createAssessmentService_should_throw_UnprocessableEntityError_withInvalidHasNA(): void
     {
         $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
 
@@ -84,7 +84,7 @@ final class AssessmentServiceTest extends TestCase
      * Throw UNPROCESSABLE_ENTITY_ERROR when having empty scoring
      * @return void
      */
-    public function testAssessmentShouldThrowUnprocessableEntityErrorWithEmptyScoring(): void
+    public function test_createAssessmentService_should_throw_UnprocessableEntityError_withEmptyScoring(): void
     {
         $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
 
@@ -99,7 +99,7 @@ final class AssessmentServiceTest extends TestCase
      * Throw UNPROCESSABLE_ENTITY_ERROR when having invalid scoring
      * @return void
      */
-    public function testAssessmentShouldThrowUnprocessableEntityErrorWithInvalidScoringType(): void
+    public function test_createAssessmentService_should_throw_UnprocessableEntityError_withInvalidScoringType(): void
     {
         $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
 
@@ -114,7 +114,7 @@ final class AssessmentServiceTest extends TestCase
      * Throw UNPROCESSABLE_ENTITY_ERROR when having negative scoring(logical error)
      * @return void
      */
-    public function testAssessmentShouldThrowUnprocessableEntityErrorWithNegativeScoring(): void
+    public function test_createAssessmentService_should_throw_UnprocessableEntityError_withNegativeScoring(): void
     {
         $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
 
@@ -124,4 +124,57 @@ final class AssessmentServiceTest extends TestCase
         $_POST['scoring'] = "-1";
         AssessmentService::createAssessmentQuestion($_POST);
     }
+
+	/**
+	 * Throw UNPROCESSABLE_ENTITY_ERROR if there is no question id passed.
+	 * @return void
+	 * @throws Exception
+	 */
+	public function test_deleteAssessmentService_should_throw_UnprocessableEntityError_withMissingQuestionId(): void {
+		$this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
+		AssessmentService::deleteAssessmentQuestion($_POST);
+	}
+
+	/**
+	 * Throw MISSING_QUESTION_ID if trying to update a question without providing its id
+	 * @return void
+	 * @throws Exception
+	 */
+	public function test_updateAssessmentService_should_throw_UnprocessableEntityError_withMissingQuestionId() : void {
+		$this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
+
+		$_POST['component'] = "Gender Expertise";
+		$_POST['description'] = "placeholder";
+		$_POST['hasNA'] = 0;
+		$_POST['scoring'] = "-1";
+		AssessmentService::updateAssessmentQuestion($_POST);
+	}
+
+	/**
+	 * Throw UNPROCESSABLE_ENTITY_ERROR if trying to update a question with no content.
+	 * @return void
+	 */
+	public function test_updateAssessmentService_should_throw_UnprocessableEntityError_withEmptyRequestBody() : void {
+		$this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
+		$_POST['id'] = 1;
+
+		AssessmentService::updateAssessmentQuestion($_POST);
+	}
+
+	/**
+	 * Throw UNPROCESSABLE_ENTITY_ERROR if trying to update a question with invalid parameter content.
+	 * @return void
+	 * @throws Exception
+	 */
+	public function test_updateAssessmentService_should_throw_UnprocessableEntityError_withInvalidRequestBody() : void {
+		$this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
+
+		$_POST['id'] = 1;
+		$_POST['component'] = "Gender Expertise";
+		$_POST['description'] = "placeholder";
+		$_POST['hasNA'] = 0;
+		$_POST['scoring'] = "-1";
+
+		AssessmentService::updateAssessmentQuestion($_POST);
+	}
 }
