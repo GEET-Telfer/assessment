@@ -9,10 +9,9 @@
       "email": "zwang684@uottawa.ca"
     }
   ],
-  "require": {
-  },
   "require-dev": {
-    "phpunit/phpunit": "^9.5"
+    "phpunit/phpunit": "^9.5",
+    "yoast/wp-test-utils": "^1.0"
   },
   "autoload": {
     "classmap": [

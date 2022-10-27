@@ -45,6 +45,18 @@ final class AssessmentControllerTest extends TestCase {
 		updateAssessmentQuestion();
 	}
 
+	/**
+	 * TODO: resolve undefined wp_send_json_error
+	 * @return void
+	 */
+	public function test_findAllAssessment_should_throw_MethodNotAllow_withGetRequest(): void {
+		$this->expectError();
+
+		$_GET = [];
+		unset( $_GET );
+		findAllAssessmentQuestion();
+	}
+
 
 }
 
