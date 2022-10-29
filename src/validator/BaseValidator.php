@@ -32,9 +32,9 @@ class BaseValidator implements Validator {
 	 * content must have minimum length of $length
 	 * @throws Exception
 	 */
-	public function minLength( $content, $length, $message ): void {
+	public function minLength(  $content, $length, $message ): void {
 		$this->isRequired( $content, $message );
-		if ( $content . $length < $length ) {
+		if ( strlen($content) < $length ) {
 			throw new Exception( $message, UNPROCESSABLE_ENTITY_ERROR );
 		}
 	}
