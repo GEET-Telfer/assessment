@@ -18,8 +18,9 @@ function init_table_assessment(): void {
 	$schema = "CREATE TABLE IF NOT EXISTS " . $tableName . "(
 		id  INT UNSIGNED AUTO_INCREMENT,
 		component VARCHAR(255) NOT NULL, 
+		component_abbrev VARCHAR(255) NOT NULL,
 		description VARCHAR(255) NOT NULL,
-		hasNA BOOLEAN NOT NULL DEFAULT FALSE,
+		has_NA BOOLEAN NOT NULL DEFAULT FALSE,
 		scoring TINYINT NOT NULL,
 		PRIMARY KEY (id)
 	) ";
