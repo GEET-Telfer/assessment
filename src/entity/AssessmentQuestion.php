@@ -1,63 +1,22 @@
 <?php
-//require_once( ABSPATH . 'wp-content/plugins/assessment/src/interface/Builder.php' );
-require_once(__DIR__."/../interface/Builder.php");
 
-use Builder\AssessmentBuilder as Builder;
-
-class AssessmentQuestionBuilder implements Builder {
-	private AssessmentQuestion $assessmentQuestion;
-
-	private function __construct() {
-		$this->assessmentQuestion = new AssessmentQuestion();
-	}
-
-	public static function init(): AssessmentQuestionBuilder {
-		return new AssessmentQuestionBuilder();
-	}
-
-	public function id( $id ): AssessmentQuestionBuilder {
-		$this->assessmentQuestion->setId( $id );
-
-		return $this;
-	}
-
-	public function component( $component ): AssessmentQuestionBuilder {
-		$this->assessmentQuestion->setComponent( $component );
-
-		return $this;
-	}
-
-	public function description( $description ): AssessmentQuestionBuilder {
-		$this->assessmentQuestion->setDescription( $description );
-
-		return $this;
-	}
-
-	public function hasNA( $hasNA ): AssessmentQuestionBuilder {
-		$this->assessmentQuestion->setHasNA( $hasNA );
-
-		return $this;
-	}
-
-	public function scoring( $scoring ): AssessmentQuestionBuilder {
-		$this->assessmentQuestion->setScoring( $scoring );
-
-		return $this;
-	}
-
-	public function build(): AssessmentQuestion {
-		return $this->assessmentQuestion;
-	}
-}
-
+/**
+ * Data model for assessment questions
+ */
 class AssessmentQuestion {
-	private ?int $id = null;
-	private ?string $component = null;
-	private ?string $description = null;
-	private bool $hasNA = false;
-	private ?int $scoring = null;
+	private ?int $id = null; # Auto-incremented Id assigned from database
+	private ?string $component = null; # Category of the assessment question
+	private ?string $componentAbbrev = null; # Abbreviation of component
+	private ?string $description = null; # Detail description of the question
+	private bool $hasNA = false; # does the assessment question have N/A option
+	private ?int $scoring = null; # scoring metric e.g. 5: score from 1 to 5.
+
+	public function __construct() {}
+
+	public function __destruct() {}
 
 	/**
+	 * setter for id
 	 * @param int|null $id
 	 */
 	function setId( ?int $id ): void {
@@ -65,6 +24,7 @@ class AssessmentQuestion {
 	}
 
 	/**
+	 * setter for component
 	 * @param string|null $component
 	 */
 	function setComponent( ?string $component ): void {
@@ -72,16 +32,24 @@ class AssessmentQuestion {
 	}
 
 	/**
+	 * setter for componentAbbrev
+	 * @param string|null $componentAbbrev
+	 */
+	function setComponentAbbrev( ?string $componentAbbrev ): void {
+		$this->componentAbbrev = $componentAbbrev;
+	}
+
+	/**
+	 * setter for description
 	 * @param string|null $description
 	 */
 	function setDescription( ?string $description ): void {
 		$this->description = $description;
 	}
 
-
 	/**
-	 * @param string|null $hasNA
-	 *
+	 * setter for hasNA
+	 * @param bool|null $hasNA
 	 * @return void
 	 */
 	public function setHasNA( ?bool $hasNA ): void {
@@ -89,24 +57,24 @@ class AssessmentQuestion {
 	}
 
 	/**
-	 * @param string|null $scoring
+	 * setter for scoring
+	 * @param int|null $scoring
 	 */
 	function setScoring( ?int $scoring ): void {
 		$this->scoring = $scoring;
 	}
 
-	public function __construct() {
-	}
-
-	public function __destruct() {
-	}
-
+	/**
+	 * return an associative array of the assessment question object.
+	 * @return array
+	 */
 	public function toArray(): array {
 		$arr = [
-			'component'   => $this->component,
-			'description' => $this->description,
-			'hasNA'       => $this->hasNA,
-			'scoring'     => $this->scoring
+			'component'       => $this->component,
+			'component_abbrev' => $this->componentAbbrev,
+			'description'     => $this->description,
+			'has_NA'           => $this->hasNA,
+			'scoring'         => $this->scoring
 		];
 		if ( ! is_null( $this->id ) ) {
 			$arr['id'] = $this->id;
