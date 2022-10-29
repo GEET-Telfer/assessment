@@ -1,30 +1,56 @@
 <?php
-//require_once( ABSPATH . 'wp-content/plugins/assessment/src/validator/BaseValidator.php' );
-require_once(__DIR__."/../validator/BaseValidator.php");
+require_once( __DIR__ . "/../validator/BaseValidator.php" );
 
 class AssessmentQuestionValidator extends BaseValidator {
 
-	public function isComponent( $content, $message = "Invalid Component." ) {
-		parent::isRequired( $content, $message );
+	/**
+	 * Rule for component: not empty and is in COMPONENT_LIST
+	 * @throws Exception
+	 */
+	public function isComponent( $content ) {
+		parent::isRequired( $content, "Missing Parameter: Component" );
 		if ( ! in_array( $content, COMPONENT_LIST ) ) {
-			throw new Exception( $message , UNPROCESSABLE_ENTITY_ERROR);
+			throw new Exception( "Component Value Not Found.", UNPROCESSABLE_ENTITY_ERROR );
 		}
 	}
 
-	public function isDescription( $content, $message = "Invalid Description." ) {
-		parent::isRequired( $content, $message );
+	/**
+	 * Rule for description: not empty
+	 * @throws Exception
+	 */
+	public function isDescription( $content ) {
+		parent::isRequired( $content, "Missing Parameter: Description." );
 	}
 
-	public function isHasNA( $content, $message = "Invalid HasNA." ) {
+	/**
+	 * Rule for hasNA: not empty and is in NA_LIST
+	 * @throws Exception
+	 */
+	public function isHasNA( $content ) {
 		if ( ! in_array( $content, NA_LIST ) ) {
-			throw new Exception( $message, UNPROCESSABLE_ENTITY_ERROR );
+			throw new Exception( "HasNA Value Not Found", UNPROCESSABLE_ENTITY_ERROR );
 		}
 	}
 
-	public function isScoring( $content, $message = "Invalid Scoring." ) {
-		parent::isRequired( $content, $message );
-		if ( ! is_numeric( $content ) || $content <= 0) {
-			throw new Exception( $message, UNPROCESSABLE_ENTITY_ERROR );
+	/**
+	 * Rule for scoring: not empty and is positive digit
+	 * @throws Exception
+	 */
+	public function isScoring( $content ) {
+		parent::isRequired( $content, "Missing Parameter: Scoring" );
+		if ( ! is_numeric( $content ) || $content <= 0 ) {
+			throw new Exception( "Invalid Value For Scoring", UNPROCESSABLE_ENTITY_ERROR );
+		}
+	}
+
+	/**
+	 * Rule for componentAbbrev: not empty and is in COMPONENT_ABBREV_LIST
+	 * @throws Exception
+	 */
+	public function isComponentAbbrev( $content ) {
+		parent::isRequired( $content, "Missing Parameter: Component Abbreviation" );
+		if ( ! array_key_exists( $content, COMPONENT_ABBREV_LIST ) || ! $content ) {
+			throw new Exception( "Invalid Value For Component Abbreviation", UNPROCESSABLE_ENTITY_ERROR );
 		}
 	}
 }
