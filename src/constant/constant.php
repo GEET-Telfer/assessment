@@ -4,9 +4,10 @@ define( "BAD_REQUEST_ERROR", 400 );
 define( "UNPROCESSABLE_ENTITY_ERROR", 422 );
 define( "INTERNAL_SERVER_ERROR", 500 );
 define("METHDO_NOT_ALLOWED", 405);
+define("MISSING_PARAMETER_ERROR", 490);
 // ENTITY ENUMS
 define( "COMPONENT_LIST", [
-	"Commitment to Equity, Diversity & Inclusion",
+	"Commitment to Equity, Diversity and Inclusion",
 	"Gender Expertise",
 	"Access to Resources",
 	"Program Design",
@@ -14,6 +15,16 @@ define( "COMPONENT_LIST", [
 	"Program Delivery",
 	"Program Evaluation"
 ] );
+define( "COMPONENT_ABBREV_LIST", [
+	"Commitment",
+	"Expertise",
+	"Resources",
+	"Design",
+	"Development",
+	"Delivery",
+	"Evaluation"
+] );
+
 define( "ASSESSMENT_QUESTION_PARAMS", [ 'component', 'description', 'hasNA', 'scoring' ] );
 define( "USER_RESPONSE_PARAMS", [ 'user_response', 'user_email', 'score' ] );
 define( "EVALUATION", [ "WARNING", "OK", "PASS"] );
