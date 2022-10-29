@@ -50,7 +50,7 @@ function createUserResponse(): void {
  * @param $message
  * @return bool|string
  */
-function compileEmailMessage( $message ): bool|string {
+function compileEmailMessage( $message ) {
 
 	$reportObj = json_decode( $message, true );
 
