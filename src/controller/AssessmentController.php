@@ -17,7 +17,11 @@ function createAssessmentQuestion(): void {
 			throw new Exception( "Invalid Request Method", METHDO_NOT_ALLOWED );
 		}
 		$result = AssessmentService::createAssessmentQuestion( $_POST );
-		wp_send_json($result);
+		if($result) {
+			wp_send_json_success();
+		} else {
+			throw new Exception("Something wrong with the server.", INTERNAL_SERVER_ERROR);
+		}
 	} catch ( Exception $e ) {
 		wp_send_json_error( $e->getMessage(), $e->getCode() );
 	} finally {
