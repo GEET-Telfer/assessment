@@ -9,6 +9,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
+
+const WP_ENVIRONMENT_TYPE = "development";
+
 require_once( 'utils/init_db.php' ); // initialize required database tables if it hasn't been created yet.
 register_activation_hook( __FILE__, 'init_table_assessment' );
 register_activation_hook( __FILE__, 'init_table_user_response' );

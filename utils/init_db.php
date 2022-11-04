@@ -15,6 +15,8 @@ function init_table_assessment(): void {
 	global $wpdb;
 	$tableName = $wpdb->prefix . "assessment";
 
+	dropTableIfExists($tableName);
+
 	$schema = "CREATE TABLE IF NOT EXISTS " . $tableName . "(
 		id  INT UNSIGNED AUTO_INCREMENT,
 		component VARCHAR(255) NOT NULL, 
@@ -36,6 +38,8 @@ function init_table_user_response(): void {
 	global $wpdb;
 	$tableName = $wpdb->prefix . "user_response";
 
+	dropTableIfExists($tableName);
+
 	$schema = "CREATE TABLE IF NOT EXISTS " . $tableName . "(
 		id INT UNSIGNED AUTO_INCREMENT,
 		user_email VARCHAR(255),
@@ -56,6 +60,8 @@ function init_table_team(): void {
 	global $wpdb;
 	$tableName = $wpdb->prefix . "team";
 
+	dropTableIfExists($tableName);
+
 	$schema = "CREATE TABLE IF NOT EXISTS " . $tableName . "(
 		id TINYINT UNSIGNED AUTO_INCREMENT,
 		user_email VARCHAR(255),
@@ -67,4 +73,18 @@ function init_table_team(): void {
 	init_table( $schema );
 }
 
+/**
+ * Drop table if exists in non-production environment.
+ * Note: By re-activating this plugin, it will drop all the tables
+ * used in this plugin.
+ * @param $tableName
+ * @return void
+ */
+function dropTableIfExists($tableName): void {
+	global $wpdb;
+	if(WP_ENVIRONMENT_TYPE != "production") {
+		$sql = "DROP TABLE IF EXISTS " . $tableName;
+		$wpdb->query( $sql );
+	}
+}
 
