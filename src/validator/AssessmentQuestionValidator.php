@@ -48,8 +48,7 @@ class AssessmentQuestionValidator extends BaseValidator {
 	 * @throws Exception
 	 */
 	public function isComponentAbbrev( $content ) {
-		parent::isRequired( $content, "Missing Parameter: Component Abbreviation" );
-		if ( ! array_key_exists( $content, COMPONENT_ABBREV_LIST ) || ! $content ) {
+		if ( !is_int($content) || ! array_key_exists( $content, COMPONENT_ABBREV_LIST )) {
 			throw new Exception( "Invalid Value For Component Abbreviation", UNPROCESSABLE_ENTITY_ERROR );
 		}
 	}
