@@ -111,7 +111,7 @@ class AssessmentService {
 
 		$data = $obj->toArray();
 
-		return $wpdb->update( $wpdb->prefix . self::$tableName, $data, $request['id'] );
+		return $wpdb->update( $wpdb->prefix . self::$tableName, $data, array('id' => $request['id']) );
 	}
 
 	/**
