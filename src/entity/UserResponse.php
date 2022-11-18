@@ -1,50 +1,4 @@
 <?php
-//require_once( ABSPATH . 'wp-content/plugins/assessment/src/interface/Builder.php' );
-require_once( __DIR__ . "/../interface/Builder.php" );
-
-use Builder\BaseBuilder;
-use Builder\UserResponseBuilder as Builder;
-
-class UserResponseBuilder implements Builder {
-	private UserResponse $userResponse;
-
-	private function __construct() {
-		$this->userResponse = new UserResponse();
-	}
-
-	public static function init(): BaseBuilder {
-		return new UserResponseBuilder();
-	}
-
-	public function build(): UserResponse {
-		return $this->userResponse;
-	}
-
-
-	public function answer( $answer ): Builder {
-		$this->userResponse->setAnswer( $answer );
-
-		return $this;
-	}
-
-	public function userEmail( $userEmail ): Builder {
-		$this->userResponse->setUserEmail( $userEmail );
-
-		return $this;
-	}
-
-	public function score( $score ): Builder {
-		$this->userResponse->setScore( $score );
-
-		return $this;
-	}
-
-	public function report( $report ): Builder {
-		$this->userResponse->setReport( $report );
-
-		return $this;
-	}
-}
 
 class UserResponse {
 	private ?string $answer = null;
@@ -53,6 +7,7 @@ class UserResponse {
 	private ?string $report = null;
 
 	/**
+	 * setter for answer
 	 * @param string $answer
 	 */
 	public function setAnswer( string $answer ): void {
@@ -60,6 +15,7 @@ class UserResponse {
 	}
 
 	/**
+	 * setter for user_email
 	 * @param string $userEmail
 	 */
 	public function setUserEmail( string $userEmail ): void {
@@ -67,12 +23,18 @@ class UserResponse {
 	}
 
 	/**
+	 * setter for score
 	 * @param string $score
 	 */
 	public function setScore( string $score ): void {
 		$this->score = $score;
 	}
 
+	/**
+	 * setter for report
+	 * @param string $report
+	 * @return void
+	 */
 	public function setReport( string $report ): void {
 		$this->report = $report;
 	}
@@ -83,6 +45,10 @@ class UserResponse {
 	public function __destruct() {
 	}
 
+	/**
+	 * return an associative array of the user response object.
+	 * @return array
+	 */
 	public function toArray(): array {
 		return [
 			'user_email' => $this->userEmail,

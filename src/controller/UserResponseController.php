@@ -4,8 +4,6 @@ declare( strict_types=1 );
 ini_set( 'display_errors', '1' );
 ini_set( 'display_startup_errors', '1' );
 error_reporting( E_ALL );
-//require_once( ABSPATH . 'wp-content/plugins/assessment/src/service/UserResponseService.php' );
-//require_once( ABSPATH . 'wp-content/plugins/assessment/src/constant/constant.php' );
 
 require_once( dirname( __FILE__ ) . "/../service/UserResponseService.php" );
 require_once( dirname( __FILE__ ) . "/../constant/constant.php" );
@@ -19,19 +17,20 @@ function createUserResponse(): void {
 		try {
 			$wpdb->query( 'START TRANSACTION' );
 			$result = UserResponseService::createUserResponse( $_POST );
-
+			wp_send_json($result);
 			// send wp_mail
 			$to      = $_POST['user_email'];
-			$subject = "GEET Assessment Report";
+			$subject = "GEET+ Assessment Report";
 			$message = stripslashes( $_POST['report'] );
 
+			// enable html content on email message
 			function set_html_content_type() {
 				return "text/html";
 			}
-			
 			add_filter( "wp_mail_content_type", "set_html_content_type" );
 			$sent = wp_mail( $to, $subject, compileEmailMessage( $message ) );
 			remove_filter( "wp_mail_content_type", "set_html_content_type" );
+
 			if ( $sent ) {
 				$wpdb->query( 'COMMIT' );
 			} else {
@@ -47,10 +46,8 @@ function createUserResponse(): void {
 }
 
 /**
- * TODO: display summaries with html tags
- *
+ * Display summaries with html tags
  * @param $message
- *
  * @return bool|string
  */
 function compileEmailMessage( $message ) {
@@ -64,32 +61,31 @@ function compileEmailMessage( $message ) {
 
 	return "
 	<!DOCTYPE html>
-<html>
-<head>
-<style>
-span {
-  display: inline; /* the default for span */
-  width: 100px;
-  height: 100px;
-  padding: 5px;
-}
-span.PASS {
-  background-color: lightblue; 
-}
-span.OK {
-  background-color: green; 
-
-}
-span.WARNING {
-  background-color: orangered; 
-
-}
-</style>
-</head>
-<body>
-<h1>Report:</h1>
-${reportMessage}
-</body>
-</html>
+	<html lang=en>
+		<head>
+			<style>
+				span {
+				  display: inline; /* the default for span */
+				  width: 100px;
+				  height: 100px;
+				  padding: 5px;
+				}
+				span.PASS {
+				  background-color: lightblue; 
+				}
+				span.OK {
+				  background-color: green; 
+				}
+				span.WARNING {
+				  background-color: orangered; 
+				}
+			</style>
+			<title>GEET+ Assessment Report</title>
+		</head>
+		<body>
+			<h1>Report:</h1>
+			${reportMessage}
+		</body>
+	</html>
 ";
 }

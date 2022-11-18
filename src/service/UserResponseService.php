@@ -1,9 +1,7 @@
 <?php
 declare( strict_types=1 );
-//require_once( ABSPATH . 'wp-content/plugins/assessment/src/entity/UserResponse.php' );
-//require_once( ABSPATH . 'wp-content/plugins/assessment/src/validator/UserResponseValidator.php' );
 
-require_once( __DIR__ . "/../entity/UserResponse.php" );
+require_once( __DIR__ . "/../interface/impl/UserResponseBuilder.php" );
 require_once( __DIR__ . "/../validator/UserResponseValidator.php" );
 
 class UserResponseService {
@@ -13,7 +11,6 @@ class UserResponseService {
 	 * Insert user response into wp_user_response if valid. Otherwise, throws exception.
 	 *
 	 * @param $request
-	 *
 	 * @return bool|int|mysqli_result|resource|null
 	 * @throws Exception
 	 */
@@ -34,7 +31,6 @@ class UserResponseService {
 	 * Parse http request and validate request parameters.
 	 *
 	 * @param $request
-	 *
 	 * @return UserResponse|null
 	 * @throws Exception
 	 */
@@ -42,11 +38,14 @@ class UserResponseService {
 		if ( ! self::isSubset( $request, USER_RESPONSE_PARAMS ) ) {
 			throw new Exception( "Invalid Request Parameters", BAD_REQUEST_ERROR );
 		}
+
+		// Parameters for user response model
 		$answer     = stripslashes( $request['user_response'] );
 		$email      = $request['user_email'];
 		$evaluation = $request['score'];
 		$report     = stripslashes( $request['report'] );
 
+		// Parameter value validation
 		$validator = new UserResponseValidator();
 		$validator->isUserResponse( $answer );
 		$validator->isUserEmail( $email );
@@ -63,9 +62,9 @@ class UserResponseService {
 	}
 
 	/**
+	 * Check if request contains all the required parameters.
 	 * @param $request
 	 * @param $lookup
-	 *
 	 * @return bool
 	 */
 	private static function isSubset( $request, $lookup ): bool {
