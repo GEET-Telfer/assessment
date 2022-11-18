@@ -3,6 +3,7 @@ require_once(__DIR__."/../validator/BaseValidator.php");
 
 class UserResponseValidator extends BaseValidator {
 
+
 	/**
 	 * Rule for responses: not empty and in JSON format
 	 * @throws Exception
@@ -32,6 +33,7 @@ class UserResponseValidator extends BaseValidator {
 	public function isUserEmail( $content, $message = "Invalid User Email." ) {
 		parent::isEmail( $content, $message );
 	}
+
 
 	/**
 	 * Rule for report: not empty and in JSON format

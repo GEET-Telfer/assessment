@@ -50,6 +50,21 @@ add_action( 'rest_api_init', function () {
 } );
 
 /**
+ * Add RESTful endpoint for Updating assessment questions @/wp-json/assessment/v1/find-all
+ */
+add_action( 'rest_api_init', function () {
+	register_rest_route(
+		"assessment/v1",
+		"update",
+		[
+			'methods'             => \WP_REST_Server::EDITABLE,
+			'permission_callback' => '__return_true',
+			'callback'            => 'updateAssessmentQuestion'
+		]
+	);
+} );
+
+/**
  * Add RESTful endpoint for POSTing user response @/wp-json/user-response/v1/add
  */
 add_action( 'rest_api_init', function () {
