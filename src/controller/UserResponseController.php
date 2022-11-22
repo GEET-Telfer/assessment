@@ -17,7 +17,6 @@ function createUserResponse(): void {
 		try {
 			$wpdb->query( 'START TRANSACTION' );
 			$result = UserResponseService::createUserResponse( $_POST );
-			wp_send_json($result);
 			// send wp_mail
 			$to      = $_POST['user_email'];
 			$subject = "GEET+ Assessment Report";
@@ -33,6 +32,7 @@ function createUserResponse(): void {
 
 			if ( $sent ) {
 				$wpdb->query( 'COMMIT' );
+				wp_send_json($result);
 			} else {
 				$wpdb->query( 'ROLLBACK' ); // failed to send email due to internal problems
 				throw new Exception( "Something wrong with the server.", INTERNAL_SERVER_ERROR );

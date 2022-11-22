@@ -3,7 +3,7 @@
 class UserResponse {
 	private ?string $answer = null;
 	private ?string $userEmail = null;
-	private ?string $score = null;
+	private ?float $score = null;
 	private ?string $report = null;
 
 	/**
@@ -24,9 +24,9 @@ class UserResponse {
 
 	/**
 	 * setter for score
-	 * @param string $score
+	 * @param float $score
 	 */
-	public function setScore( string $score ): void {
+	public function setScore( float $score ): void {
 		$this->score = $score;
 	}
 

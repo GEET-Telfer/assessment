@@ -42,9 +42,9 @@ function init_table_user_response(): void {
 
 	$schema = "CREATE TABLE IF NOT EXISTS " . $tableName . "(
 		id INT UNSIGNED AUTO_INCREMENT,
-		user_email VARCHAR(255),
+		user_email VARCHAR(255) NOT NULL,
 		responses TEXT,
-		score ENUM('WARNING', 'OK', 'PASS'),
+		score DECIMAL(13,2) NOT NULL DEFAULT 0.00,
 		report TEXT,
 		PRIMARY KEY (id)
 	) ";

@@ -22,8 +22,7 @@ class UserResponseService {
 
 		return $wpdb->insert(
 			$wpdb->prefix . self::$tableName,
-			$data,
-			['%s', '%s','%s','%s']
+			$data
 		);
 	}
 

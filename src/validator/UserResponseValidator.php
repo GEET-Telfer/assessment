@@ -21,8 +21,11 @@ class UserResponseValidator extends BaseValidator {
 	 */
 	public function isScore( $content ) {
 		parent::isRequired( $content, "Missing Parameter: Score" );
-		if ( ! in_array( $content, EVALUATION, true ) ) {
-			throw new Exception( "Score Value Not Found", UNPROCESSABLE_ENTITY_ERROR );
+//		if ( ! in_array( $content, EVALUATION, true ) ) {
+//			throw new Exception( "Score Value Not Found", UNPROCESSABLE_ENTITY_ERROR );
+//		}
+		if( ! is_numeric($content)) {
+			throw new Exception("Wrong Data Type for score", UNPROCESSABLE_ENTITY_ERROR);
 		}
 	}
 
