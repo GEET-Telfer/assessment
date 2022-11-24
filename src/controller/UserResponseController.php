@@ -16,6 +16,7 @@ function createUserResponse(): void {
 		// begin transaction
 		try {
 			$wpdb->query( 'START TRANSACTION' );
+			$_POST = json_decode(file_get_contents("php://input"),true);
 			$result = UserResponseService::createUserResponse( $_POST );
 			// send wp_mail
 			$to      = $_POST['user_email'];
