@@ -19,6 +19,18 @@ class CourseService {
 		);
 	}
 
+	public static function findCourseById($request) {
+		global $wpdb;
+
+		if ( !isset( $request['id'] )) {
+			throw new Exception( "Missing question id.", UNPROCESSABLE_ENTITY_ERROR );
+		}
+
+		return $wpdb->get_results(
+			"SELECT * FROM " . $wpdb->prefix . self::$tableName . " WHERE id=".$request['id'] 
+		);
+	}
+
     /**
 	 * Insert an assessment question to wp_assessment.
 	 * @param $request: Expect a post request

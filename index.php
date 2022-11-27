@@ -34,6 +34,8 @@ add_action( 'wp_ajax_create_course', 'createCourse');
 add_action( 'wp_ajax_find_all_course', 'findAllCourse');
 add_action( 'wp_ajax_delete_course', 'deleteCourse');
 add_action( 'wp_ajax_update_course', 'updateCourse');
+add_action( 'wp_ajax_find_course_by_id', 'findCourseById');
+
 
 // require_once( 'utils/admin_ui.php' );
 // add_action( "init", "admin_assessment_ui" ); // initiate assessment plugin ui in admin dashboard

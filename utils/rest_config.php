@@ -109,6 +109,18 @@ add_action( 'rest_api_init', function () {
 	);
 } );
 
+add_action( 'rest_api_init', function () {
+	register_rest_route(
+		"course/v1",
+		"get",
+		[
+			'methods'             => \WP_REST_Server::READABLE,
+			'permission_callback' => '__return_true',
+			'callback'            => 'findCourseById'
+		]
+	);
+} );
+
 /**
  * Add RESTful endpoint for Deleting assessment questions @/wp-json/assessment/v1/find-all
  */
