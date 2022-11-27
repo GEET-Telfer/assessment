@@ -15,7 +15,7 @@ function init_table_assessment(): void {
 	global $wpdb;
 	$tableName = $wpdb->prefix . "assessment";
 
-	dropTableIfExists($tableName);
+	// dropTableIfExists($tableName);
 
 	$schema = "CREATE TABLE IF NOT EXISTS " . $tableName . "(
 		id  INT UNSIGNED AUTO_INCREMENT,
@@ -38,7 +38,7 @@ function init_table_user_response(): void {
 	global $wpdb;
 	$tableName = $wpdb->prefix . "user_response";
 
-	dropTableIfExists($tableName);
+	// dropTableIfExists($tableName);
 
 	$schema = "CREATE TABLE IF NOT EXISTS " . $tableName . "(
 		id INT UNSIGNED AUTO_INCREMENT,
@@ -60,7 +60,7 @@ function init_table_team(): void {
 	global $wpdb;
 	$tableName = $wpdb->prefix . "team";
 
-	dropTableIfExists($tableName);
+	// dropTableIfExists($tableName);
 
 	$schema = "CREATE TABLE IF NOT EXISTS " . $tableName . "(
 		id TINYINT UNSIGNED AUTO_INCREMENT,
@@ -71,6 +71,24 @@ function init_table_team(): void {
 		PRIMARY KEY (id)
 	) ";
 	init_table( $schema );
+}
+
+
+function init_table_course() : void {
+	global $wpdb;
+	$tableName = $wpdb->prefix . "course";
+
+	// dropTableIfExists($tableName);
+
+	$schema = "CREATE TABLE IF NOT EXISTS " . $tableName . "(
+		id TINYINT UNSIGNED AUTO_INCREMENT,
+		title VARCHAR(255) NOT NULL DEFAULT '',
+		video_link VARCHAR(255) NOT NULL DEFAULT '',
+		content TEXT NOT NULL DEFAULT '',
+		PRIMARY KEY(id)	
+	)";
+	
+	init_table($schema);
 }
 
 /**

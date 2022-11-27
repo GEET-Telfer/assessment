@@ -34,3 +34,11 @@ interface UserResponseBuilder extends BaseBuilder {
 
 	public function score( $score ): UserResponseBuilder;
 }
+
+interface CourseBuilder extends BaseBuilder {
+	public function title( $title ): CourseBuilder;
+
+	public function videoLink( $videoLink ): CourseBuilder;
+
+	public function content( $content ) : CourseBuilder;
+}
