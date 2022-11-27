@@ -1,8 +1,8 @@
 <?php
-declare( strict_types=1 );
-ini_set( 'display_errors', '1' );
-ini_set( 'display_startup_errors', '1' );
-error_reporting( E_ALL );
+// declare( strict_types=1 );
+// ini_set( 'display_errors', '1' );
+// ini_set( 'display_startup_errors', '1' );
+// error_reporting( E_ALL );
 
 require_once( dirname( __FILE__ ) . "/../service/AssessmentService.php" );
 require_once( dirname( __FILE__ ) . "/../constant/constant.php" );
@@ -16,6 +16,7 @@ function createAssessmentQuestion(): void {
 		if ( ! isset( $_POST ) ) {
 			throw new Exception( "Invalid Request Method", METHOD_NOT_ALLOWED );
 		}
+		$_POST = json_decode(file_get_contents("php://input"),true);
 		$result = AssessmentService::createAssessmentQuestion( $_POST );
     
 		if($result) {
@@ -35,11 +36,12 @@ function createAssessmentQuestion(): void {
  * Update assessment question content.
  * @return void
  */
-function updateAssessmentQuestion(): void {
+function updateAssessmentQuestion() {
 	try {
 		if ( ! isset( $_POST ) ) {
 			throw new Exception( "Invalid Request Method", METHOD_NOT_ALLOWED );
 		}
+		$_POST = json_decode(file_get_contents("php://input"),true);
 		$result = AssessmentService::updateAssessmentQuestion( $_POST );
 		if($result) {
 			wp_send_json_success();
@@ -58,11 +60,12 @@ function updateAssessmentQuestion(): void {
  * Hard delete assessment question on given question id.
  * @return void
  */
-function deleteAssessmentQuestion(): void {
+function deleteAssessmentQuestion() {
 	try {
 		if ( ! isset( $_POST ) ) {
 			throw new Exception( "Invalid Request Method", METHOD_NOT_ALLOWED );
 		}
+		$_POST = json_decode(file_get_contents("php://input"),true);
 		$result = AssessmentService::deleteAssessmentQuestion( $_POST );
 		if($result) {
 			wp_send_json_success();
