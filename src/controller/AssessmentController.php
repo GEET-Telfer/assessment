@@ -17,7 +17,7 @@ function createAssessmentQuestion(): void {
 			throw new Exception( "Invalid Request Method", METHOD_NOT_ALLOWED );
 		}
 		$_POST = json_decode(file_get_contents("php://input"),true);
-		$result = AssessmentService::createAssessmentQuestion( $_POST );
+		$result = AssessmentService::createAssessmentQuestion( $_POST['data'] );
     
 		if($result) {
 			wp_send_json_success();
@@ -42,7 +42,7 @@ function updateAssessmentQuestion() {
 			throw new Exception( "Invalid Request Method", METHOD_NOT_ALLOWED );
 		}
 		$_POST = json_decode(file_get_contents("php://input"),true);
-		$result = AssessmentService::updateAssessmentQuestion( $_POST );
+		$result = AssessmentService::updateAssessmentQuestion( $_POST['data'] );
 		if($result) {
 			wp_send_json_success();
 		} else {
@@ -66,6 +66,7 @@ function deleteAssessmentQuestion() {
 			throw new Exception( "Invalid Request Method", METHOD_NOT_ALLOWED );
 		}
 		$_POST = json_decode(file_get_contents("php://input"),true);
+
 		$result = AssessmentService::deleteAssessmentQuestion( $_POST );
 		if($result) {
 			wp_send_json_success();
