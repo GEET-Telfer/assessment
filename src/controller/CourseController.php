@@ -19,7 +19,7 @@ function createCourse(): void
 			throw new Exception("Invalid Request Method", METHOD_NOT_ALLOWED);
 		}
 		$_POST = json_decode(file_get_contents("php://input"), true);
-		$result = CourseService::createCourse($_POST);
+		$result = CourseService::createCourse($_POST['data']);
 
 		if ($result) {
 			wp_send_json_success();
@@ -45,7 +45,7 @@ function updateCourse()
 			throw new Exception("Invalid Request Method", METHOD_NOT_ALLOWED);
 		}
 		$_POST = json_decode(file_get_contents("php://input"), true);
-		$result = CourseService::updateCourse($_POST);
+		$result = CourseService::updateCourse($_POST['data']);
 		if ($result) {
 			wp_send_json_success();
 		} else {

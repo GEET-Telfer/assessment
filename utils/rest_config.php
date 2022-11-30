@@ -135,3 +135,15 @@ add_action( 'rest_api_init', function () {
 		]
 	);
 } );
+
+add_action( 'rest_api_init', function () {
+	register_rest_route(
+		"course/v1",
+		"update",
+		[
+			'methods'             => \WP_REST_Server::EDITABLE,
+			'permission_callback' => '__return_true',
+			'callback'            => 'updateCourse'
+		]
+	);
+} );
