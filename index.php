@@ -18,17 +18,23 @@ register_activation_hook( __FILE__, 'init_table_user_response' );
 register_activation_hook( __FILE__, 'init_table_team' );
 register_activation_hook(__FILE__, 'init_table_course');
 
-require_once( 'utils/rest_config.php' ); // define RESTful endpoints for Assessment Question
+// RESTful endpoints
+require_once("utils/router/AssessmentRouter.php");
+require_once("utils/router/UserResponseRouter.php");
+require_once("utils/router/CourseRouter.php");
 
+// Assessment Controllers
 require_once('src/controller/AssessmentController.php');
 add_action( 'wp_ajax_create_assessment_question', 'createAssessmentQuestion' );
 add_action( 'wp_ajax_find_all_assessment_question', 'findAllAssessmentQuestion' );
 add_action( 'wp_ajax_delete_assessment_question', 'deleteAssessmentQuestion' );
 add_action( 'wp_ajax_update_assessment_question', 'updateAssessmentQuestion' );
 
+// User Response Controller
 require_once('src/controller/UserResponseController.php');
 add_action( 'wp_ajax_create_user_response', 'createUserResponse' );
 
+// Course Controllers
 require_once('src/controller/CourseController.php');
 add_action( 'wp_ajax_create_course', 'createCourse');
 add_action( 'wp_ajax_find_all_course', 'findAllCourse');
