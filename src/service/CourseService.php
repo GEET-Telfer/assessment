@@ -2,6 +2,7 @@
 // declare( strict_types=1 );
 
 require_once( __DIR__ . "/../interface/impl/CourseBuilder.php" );
+require_once( __DIR__ . "/../validator/CourseValidator.php" );
 require_once( __DIR__ . "/../constant/constant.php");
 
 class CourseService {
@@ -100,6 +101,12 @@ class CourseService {
 		$title     = $request['title'];
 		$videoLink = $request['video_link'];
 		$content   = $request['content'];
+
+		$validator = new CourseValidator();
+		$validator->isTitle($title);
+		$validator->isVideoLink($videoLink);
+		$validator->isContent($content);
+
 
 		$obj = CourseBuilder::init()
                             ->title( $title )

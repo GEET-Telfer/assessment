@@ -66,21 +66,6 @@ final class AssessmentServiceTest extends TestCase
     }
 
     /**
-     * Throw UNPROCESSABLE_ENTITY_ERROR when having invalid hasNA
-     * @return void
-     */
-    public function test_createAssessmentService_should_throw_UnprocessableEntityError_withInvalidHasNA(): void
-    {
-        $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
-
-        $_POST['component'] = "Gender Expertise";
-        $_POST['description'] = "placeholder";
-        $_POST['hasNA'] = "false";
-        $_POST['scoring'] = "5";
-        AssessmentService::createAssessmentQuestion($_POST);
-    }
-
-    /**
      * Throw UNPROCESSABLE_ENTITY_ERROR when having empty scoring
      * @return void
      */

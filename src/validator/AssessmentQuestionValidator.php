@@ -27,7 +27,7 @@ class AssessmentQuestionValidator extends BaseValidator {
 	 * @throws Exception
 	 */
 	public function isHasNA( $content ) {
-		if ( ! in_array( $content, NA_LIST ) ) {
+		if ( ! boolval($content) ) {
 			throw new Exception( "HasNA Value Not Found", UNPROCESSABLE_ENTITY_ERROR );
 		}
 	}
