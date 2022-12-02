@@ -8,6 +8,7 @@
 require_once( dirname( __FILE__ ) . "/../service/UserResponseService.php" );
 require_once( dirname( __FILE__ ) . "/../constant/constant.php" );
 /**
+ * Transactionally, create user response record and send email with given user email.
  * @return void
  */
 function createUserResponse(): void {
@@ -33,7 +34,7 @@ function createUserResponse(): void {
 
 			if ( $sent ) {
 				$wpdb->query( 'COMMIT' );
-				wp_send_json($result);
+				wp_send_json_success($result);
 			} else {
 				$wpdb->query( 'ROLLBACK' ); // failed to send email due to internal problems
 				throw new Exception( "Something wrong with the server.", INTERNAL_SERVER_ERROR );

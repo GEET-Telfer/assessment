@@ -9,7 +9,7 @@ require_once(dirname(__FILE__) . "/../service/CourseService.php");
 require_once(dirname(__FILE__) . "/../constant/constant.php");
 
 /**
- * Create assessment question from post data.
+ * Create course model from post data.
  * @return void
  */
 function createCourse(): void
@@ -35,7 +35,7 @@ function createCourse(): void
 }
 
 /**
- * Update assessment question content.
+ * Update course model.
  * @return void
  */
 function updateCourse()
@@ -60,7 +60,7 @@ function updateCourse()
 }
 
 /**
- * Hard delete assessment question on given question id.
+ * Hard delete course record on given course id.
  * @return void
  */
 function deleteCourse()
@@ -85,7 +85,7 @@ function deleteCourse()
 }
 
 /**
- * Fetch all the assessment questions.
+ * Fetch all the courses.
  * @return void
  */
 function findAllCourse()
@@ -109,7 +109,9 @@ function findAllCourse()
 	}
 }
 
-
+/**
+ * Fetch course by Id
+ */
 function findCourseById()
 {
 	try {

@@ -1,5 +1,5 @@
 <?php
-declare( strict_types=1 );
+// declare( strict_types=1 );
 
 require_once( __DIR__ . "/../interface/impl/AssessmentQuestionBuilder.php" );
 require_once( __DIR__ . "/../validator/AssessmentQuestionValidator.php" );

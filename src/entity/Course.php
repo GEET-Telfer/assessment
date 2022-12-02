@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Data model fro course
+ */
 class Course {
 	private ?int $id = null; # Auto-incremented Id assigned from database
 	private ?string $title = null; # course title

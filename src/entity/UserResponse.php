@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Data model for User Response on Assessment Questions.
+ */
 class UserResponse {
 	private ?string $answer = null;
 	private ?string $userEmail = null;

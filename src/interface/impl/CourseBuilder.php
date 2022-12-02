@@ -5,6 +5,9 @@ require_once( __DIR__ . "/../../entity/Course.php" );
 
 use Builder\CourseBuilder as Builder;
 
+/**
+ * Builder class for Course with cascade design pattern.
+ */
 class CourseBuilder implements Builder {
     private Course $course;
 

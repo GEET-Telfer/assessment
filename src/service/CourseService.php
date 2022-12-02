@@ -1,5 +1,5 @@
 <?php
-declare( strict_types=1 );
+// declare( strict_types=1 );
 
 require_once( __DIR__ . "/../interface/impl/CourseBuilder.php" );
 require_once( __DIR__ . "/../constant/constant.php");
@@ -8,7 +8,7 @@ class CourseService {
 	private static string $tableName = 'course';
 
     /**
-	 * Retrieve all the assessment questions in the order of component_abbrev
+	 * Retrieve all the courses
 	 * @return array|object|stdClass[]|null
 	 */
 	public static function findAllCourse() {
@@ -19,6 +19,9 @@ class CourseService {
 		);
 	}
 
+	/**
+	 * Retrieve course by id
+	 */
 	public static function findCourseById($request) {
 		global $wpdb;
 
@@ -32,7 +35,7 @@ class CourseService {
 	}
 
     /**
-	 * Insert an assessment question to wp_assessment.
+	 * Insert an course record to wp_course.
 	 * @param $request: Expect a post request
 	 * @return mysqli_result|bool|int|null
 	 * @throws Exception
@@ -47,8 +50,8 @@ class CourseService {
 		return $wpdb->insert( $wpdb->prefix . self::$tableName, $data );
 	}
 
-    	/**
-	 * Update assessment question on given id.
+	/**
+	 * Update course record on given id.
 	 * @param $request
 	 * @return bool|int|mysqli_result|resource|null
 	 * @throws Exception
@@ -67,7 +70,7 @@ class CourseService {
 	}
 
     /**
-	 * Hard deletion on assessment question for a given assessment question id.
+	 * Hard deletion on course record for a given course id.
 	 * @param $request
 	 * @return mysqli_result|bool|int|null
 	 * @throws Exception
@@ -84,7 +87,7 @@ class CourseService {
 
 
     /**
-	 * Parse and validate request for assessment question model.
+	 * Parse and validate request for course model.
 	 * @param $request
 	 * @return Course
 	 * @throws Exception
@@ -93,7 +96,7 @@ class CourseService {
 		if ( ! self::isSubset( $request, COURSE_PARAMS ) ) {
 			throw new Exception( "Invalid Request Parameters", UNPROCESSABLE_ENTITY_ERROR );
 		}
-		// Parameters for assessment question model
+		// Parameters for coursen model
 		$title     = $request['title'];
 		$videoLink = $request['video_link'];
 		$content   = $request['content'];
@@ -103,7 +106,7 @@ class CourseService {
                             ->videoLink( $videoLink )
                             ->content( $content );
 
-		// Add assessment question id to the model if it is to update assessment question
+		// Add acourse id to the model if it is to update course
 		$obj = isset( $request['id'] ) ? $obj->id( $request['id'] ) : $obj;
 
 		return $obj->build();
