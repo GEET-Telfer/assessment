@@ -5,9 +5,11 @@
  */
 class Course {
 	private ?int $id = null; # Auto-incremented Id assigned from database
+	private ?string $uuid = null; #UUIDv4
 	private ?string $title = null; # course title
 	private ?string $videoLink = null; # youtube video link
 	private ?string $content = null; # content of the course
+	private ?string $courseStatus = null; # draft/ under_review/ publish
 
 	public function __construct() {}
 
@@ -19,6 +21,20 @@ class Course {
 	 */
 	function setId( ?int $id ): void {
 		$this->id = $id;
+	}
+
+	/**
+	 * setter for uuid
+	 */
+	function setUUID( ?string $uuid ): void {
+		$this->uuid = $uuid;
+	}
+
+	/**
+	 * setter for status
+	 */
+	function setCourseStatus( ?string $courseStatus ): void {
+		$this->courseStatus = $courseStatus;
 	}
 
     /**
@@ -51,9 +67,11 @@ class Course {
 	 */
 	public function toArray(): array {
 		$arr = [
-			'title'       => $this->title,
-			'video_link' => $this->videoLink,
-			'content'     => $this->content
+			'uuid' 		    => $this->uuid,
+			'title'         => $this->title,
+			'video_link'    => $this->videoLink,
+			'content'       => $this->content,
+			'course_status' => $this->courseStatus
 		];
 		if ( ! is_null( $this->id ) ) {
 			$arr['id'] = $this->id;

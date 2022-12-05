@@ -30,4 +30,22 @@ class CourseValidator extends BaseValidator
     {
         parent::isRequired($content, "Missing Parameter: Content");
     }
+
+    /**
+     * Rule for uuid: Not empty
+     */
+    public function isUUID($content)
+    {
+        parent::isRequired($content, "Missing Parameter: UUID");
+    }
+
+    /**
+     * Rule for status: value in [draft, under_review, publish]
+     */
+    public function isCourseStatus($content)
+    {
+        if( !in_array($content, STATUS_LIST)) {
+			throw new Exception( "Status Value Not Found", UNPROCESSABLE_ENTITY_ERROR );
+        }
+    }
 }

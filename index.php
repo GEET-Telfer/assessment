@@ -41,6 +41,8 @@ add_action( 'wp_ajax_find_all_course', 'findAllCourse');
 add_action( 'wp_ajax_delete_course', 'deleteCourse');
 add_action( 'wp_ajax_update_course', 'updateCourse');
 add_action( 'wp_ajax_find_course_by_id', 'findCourseById');
+add_action( 'wp_ajax_find_course_by_id_for_admin', 'findCourseById4Admin');
+add_action( 'wp_ajax_find_all_course_for_admin', 'findAllCourse4Admin');
 
 
 // require_once( 'utils/admin_ui.php' );

@@ -18,7 +18,9 @@ final class CourseServiceTest extends TestCase {
         $_POST["title"] = "";
         // $_POST["video_link"] = "https://youtube.ca";
         $_POST["content"] = "content placeholder";
-
+        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+        $_POST["course_status"] = "draft";
+        
         CourseService::createCourse($_POST);
     }
 
@@ -28,6 +30,8 @@ final class CourseServiceTest extends TestCase {
         $_POST["title"] = "";
         $_POST["video_link"] = "https://youtube.ca";
         $_POST["content"] = "content placeholder";
+        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+        $_POST["course_status"] = "draft";
 
         CourseService::createCourse($_POST);
     }
@@ -38,6 +42,8 @@ final class CourseServiceTest extends TestCase {
         $_POST["title"] = "title";
         $_POST["video_link"] = "";
         $_POST["content"] = "content placeholder";
+        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+        $_POST["course_status"] = "draft";
 
         CourseService::createCourse($_POST);
     }
@@ -48,6 +54,8 @@ final class CourseServiceTest extends TestCase {
         $_POST["title"] = "title";
         $_POST["video_link"] = "12345";
         $_POST["content"] = "content placeholder";
+        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+        $_POST["course_status"] = "draft";
 
         CourseService::createCourse($_POST);
     }
@@ -58,6 +66,8 @@ final class CourseServiceTest extends TestCase {
         $_POST["title"] = "title";
         $_POST["video_link"] = "http://youtube.ca";
         $_POST["content"] = "";
+        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+        $_POST["course_status"] = "draft";
 
         CourseService::createCourse($_POST);
     }

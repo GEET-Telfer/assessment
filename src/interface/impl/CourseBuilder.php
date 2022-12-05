@@ -29,6 +29,18 @@ class CourseBuilder implements Builder {
         return $this;
     }
 
+    public function uuid ( $uuid ): CourseBuilder {
+        $this->course->setUUID( $uuid );
+
+        return $this;
+    }
+
+    public function courseStatus( $course_status): CourseBuilder {
+        $this->course->setCourseStatus( $course_status );
+        
+        return $this;
+    }
+
     public function title( $title ): CourseBuilder {
         $this->course->setTitle( $title );
 

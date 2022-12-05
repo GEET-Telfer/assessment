@@ -30,5 +30,5 @@ define( "USER_RESPONSE_PARAMS", [ 'user_response', 'user_email', 'score' ] );
 define( "COURSE_PARAMS", ["title", "video_link", "content"]);
 define( "EVALUATION", [ "WARNING", "OK", "PASS"] );
 define( "NA_LIST", [ "", "0", "1", true, false ] );
-
+define( "STATUS_LIST", ["draft", "under_review", "publish"]);
 // ANYTHING ELSE

@@ -9,10 +9,22 @@ class CourseService {
 	private static string $tableName = 'course';
 
     /**
-	 * Retrieve all the courses
+	 * Retrieve all the published courses
 	 * @return array|object|stdClass[]|null
 	 */
 	public static function findAllCourse() {
+		global $wpdb;
+
+		return $wpdb->get_results(
+			"SELECT uuid, title, video_link, content, course_status FROM " . $wpdb->prefix . self::$tableName . " WHERE course_status='publish'"
+		);
+	}
+
+	/**
+	 * Retrieve all the courses
+	 * @return array|object|stdClass[]|null
+	 */
+	public static function findAllCourse4Admin() {
 		global $wpdb;
 
 		return $wpdb->get_results(
@@ -21,9 +33,24 @@ class CourseService {
 	}
 
 	/**
-	 * Retrieve course by id
+	 * Retrieve published course by id for user
 	 */
 	public static function findCourseById($request) {
+		global $wpdb;
+
+		if ( !isset( $request['uuid'] )) {
+			throw new Exception( "Missing question uuid.", UNPROCESSABLE_ENTITY_ERROR );
+		}
+
+		return $wpdb->get_results(
+			"SELECT uuid, title, video_link, content, course_status FROM " . $wpdb->prefix . self::$tableName . " WHERE uuid=".$request['uuid'] ." AND course_status='publish'"
+		);
+	}
+
+	/**
+	 * Retrieve course by id for admin
+	 */
+	public static function findCourseById4Admin($request) {
 		global $wpdb;
 
 		if ( !isset( $request['id'] )) {
@@ -31,7 +58,7 @@ class CourseService {
 		}
 
 		return $wpdb->get_results(
-			"SELECT * FROM " . $wpdb->prefix . self::$tableName . " WHERE id=".$request['id'] 
+			"SELECT * FROM " . $wpdb->prefix . self::$tableName . " WHERE id=".$request['id']
 		);
 	}
 
@@ -98,17 +125,22 @@ class CourseService {
 			throw new Exception( "Invalid Request Parameters", UNPROCESSABLE_ENTITY_ERROR );
 		}
 		// Parameters for coursen model
-		$title     = $request['title'];
-		$videoLink = $request['video_link'];
-		$content   = $request['content'];
+		$uuid 	    	  = $request['uuid'];
+		$title    		  = $request['title'];
+		$videoLink 		  = $request['video_link'];
+		$content  		  = $request['content'];
+		$course_status    = $request['course_status'];
 
 		$validator = new CourseValidator();
+		$validator->isUUID($uuid);
 		$validator->isTitle($title);
 		$validator->isVideoLink($videoLink);
 		$validator->isContent($content);
-
+		$validator->isCourseStatus($content);
 
 		$obj = CourseBuilder::init()
+							->uuid( $uuid )
+							->course_status( $course_status )
                             ->title( $title )
                             ->videoLink( $videoLink )
                             ->content( $content );

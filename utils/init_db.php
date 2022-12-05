@@ -15,15 +15,17 @@ function init_table_assessment(): void {
 	global $wpdb;
 	$tableName = $wpdb->prefix . "assessment";
 
-	// dropTableIfExists($tableName);
+	dropTableIfExists($tableName);
 
 	$schema = "CREATE TABLE IF NOT EXISTS " . $tableName . "(
 		id  INT UNSIGNED AUTO_INCREMENT,
+		uuid VARCHAR(255) NOT NULL,
 		component VARCHAR(255) NOT NULL, 
 		component_abbrev VARCHAR(255) NOT NULL,
 		description VARCHAR(255) NOT NULL,
 		has_NA BOOLEAN NOT NULL DEFAULT FALSE,
 		scoring TINYINT NOT NULL,
+		status ENUM('draft', 'under_review', 'publish'),
 		PRIMARY KEY (id)
 	) ";
 
@@ -38,7 +40,7 @@ function init_table_user_response(): void {
 	global $wpdb;
 	$tableName = $wpdb->prefix . "user_response";
 
-	// dropTableIfExists($tableName);
+	dropTableIfExists($tableName);
 
 	$schema = "CREATE TABLE IF NOT EXISTS " . $tableName . "(
 		id INT UNSIGNED AUTO_INCREMENT,
@@ -60,7 +62,7 @@ function init_table_team(): void {
 	global $wpdb;
 	$tableName = $wpdb->prefix . "team";
 
-	// dropTableIfExists($tableName);
+	dropTableIfExists($tableName);
 
 	$schema = "CREATE TABLE IF NOT EXISTS " . $tableName . "(
 		id TINYINT UNSIGNED AUTO_INCREMENT,
@@ -78,13 +80,15 @@ function init_table_course() : void {
 	global $wpdb;
 	$tableName = $wpdb->prefix . "course";
 
-	// dropTableIfExists($tableName);
+	dropTableIfExists($tableName);
 
 	$schema = "CREATE TABLE IF NOT EXISTS " . $tableName . "(
 		id TINYINT UNSIGNED AUTO_INCREMENT,
+		uuid VARCHAR(255) NOT NULL,
 		title VARCHAR(255) NOT NULL DEFAULT '',
 		video_link VARCHAR(255) NOT NULL DEFAULT '',
 		content TEXT NOT NULL DEFAULT '',
+		course_status ENUM('draft', 'under_review', 'publish'),
 		PRIMARY KEY(id)	
 	)";
 	
