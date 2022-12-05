@@ -8,10 +8,22 @@ class AssessmentService {
 	private static string $tableName = 'assessment';
 
 	/**
-	 * Retrieve all the assessment questions in the order of component_abbrev
+	 * Retrieve all the published assessment questions in the order of component_abbrev
 	 * @return array|object|stdClass[]|null
 	 */
 	public static function findAllAssessmentQuestion() {
+		global $wpdb;
+
+		return $wpdb->get_results(
+			"SELECT * FROM " . $wpdb->prefix . self::$tableName . " WHERE question_status='publish' ORDER BY component_abbrev"
+		);
+	}
+
+	/**
+	 * Retrieve all the assessment questions in the order of component_abbrev
+	 * @return array|object|stdClass[]|null
+	 */
+	public static function findAllAssessmentQuestion4Admin() {
 		global $wpdb;
 
 		return $wpdb->get_results(
@@ -51,6 +63,8 @@ class AssessmentService {
 		$description = $request['description'];
 		$hasNA       = $request['hasNA'];
 		$scoring     = $request['scoring'];
+		$uuid        = $request['uuid'];
+		$questionStatus = $request['question_status'];
 
 		// Validate if component exists in the COMPONENT_LIST
 		$componentAbbrevIndex = array_search($component, COMPONENT_LIST);
@@ -62,16 +76,19 @@ class AssessmentService {
 		$validator->isHasNA( $hasNA );
 		$validator->isScoring( $scoring );
 		$validator->isComponentAbbrev($componentAbbrevIndex);
-
+		$validator->isUUID( $uuid );
+		$validator->isQuestionStatus( $questionStatus );
 		// Acquire component abbreviation on COMPONENT_ABBREV_LIST
 		$componentAbbrev = COMPONENT_ABBREV_LIST[$componentAbbrevIndex];
 
 		$obj = AssessmentQuestionBuilder::init()
-		                                ->component( $request['component'] )
+										->uuid($uuid)
+										->questionStatus($questionStatus)
+		                                ->component( $component )
 										->componentAbbrev( $componentAbbrev )
-		                                ->description( $request['description'] )
-		                                ->hasNA( $request['hasNA'] )
-		                                ->scoring( ( $request['scoring'] ) );
+		                                ->description( $description )
+		                                ->hasNA( $hasNA )
+		                                ->scoring( $scoring );
 
 		// Add assessment question id to the model if it is to update assessment question
 		$obj = isset( $request['id'] ) ? $obj->id( $request['id'] ) : $obj;

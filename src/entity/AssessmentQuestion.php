@@ -10,6 +10,8 @@ class AssessmentQuestion {
 	private ?string $description = null; # Detail description of the question
 	private bool $hasNA = false; # does the assessment question have N/A option
 	private ?int $scoring = null; # scoring metric e.g. 5: score from 1 to 5.
+	private ?string $questionStatus = null;
+	private ?string $uuid = null;
 
 	public function __construct() {}
 
@@ -21,6 +23,14 @@ class AssessmentQuestion {
 	 */
 	function setId( ?int $id ): void {
 		$this->id = $id;
+	}
+
+	function setQuestionStatus( $status ): void {
+		$this->questionStatus = $status;
+	}
+
+	function setUUID( $uuid ):void {
+		$this->uuid = $uuid;
 	}
 
 	/**
@@ -74,7 +84,9 @@ class AssessmentQuestion {
 			'component_abbrev' => $this->componentAbbrev,
 			'description'     => $this->description,
 			'has_NA'           => $this->hasNA,
-			'scoring'         => $this->scoring
+			'scoring'         => $this->scoring,
+			'question_status' => $this->questionStatus,
+			'uuid' => $this->uuid
 		];
 		if ( ! is_null( $this->id ) ) {
 			$arr['id'] = $this->id;

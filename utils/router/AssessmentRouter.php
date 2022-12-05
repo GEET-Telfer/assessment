@@ -15,6 +15,23 @@ add_action( 'rest_api_init', function () {
 	);
 } );
 
+########################################### For Admin ###########################################
+
+/**
+ * Add RESTful endpoint for GETting assessment questions @/wp-json/admin/assessment/v1/find-all
+ */
+add_action( 'rest_api_init', function () {
+	register_rest_route(
+		"admin/assessment/v1",
+		"find-all",
+		[
+			'methods'             => \WP_REST_Server::READABLE,
+			'permission_callback' => '__return_true',
+			'callback'            => 'findAllAssessmentQuestion4Admin'
+		]
+	);
+} );
+
 /**
  * Add RESTful endpoint for POSTing assessment question @/wp-json/assessment/v1/add
  */

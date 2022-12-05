@@ -22,6 +22,18 @@ class AssessmentQuestionBuilder implements Builder {
 		return new AssessmentQuestionBuilder();
 	}
 
+	public function uuid( $uuid ): AssessmentQuestionBuilder {
+		$this->assessmentQuestion->setUUID($uuid);
+
+		return $this;
+	}
+
+	public function questionStatus( $status ): AssessmentQuestionBuilder {
+		$this->assessmentQuestion->setQuestionStatus( $status );
+
+		return $this;
+	}
+
 	/**
 	 * setId
 	 */

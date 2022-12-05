@@ -25,7 +25,7 @@ function init_table_assessment(): void {
 		description VARCHAR(255) NOT NULL,
 		has_NA BOOLEAN NOT NULL DEFAULT FALSE,
 		scoring TINYINT NOT NULL,
-		status ENUM('draft', 'under_review', 'publish'),
+		question_status ENUM('draft', 'under_review', 'publish'),
 		PRIMARY KEY (id)
 	) ";
 

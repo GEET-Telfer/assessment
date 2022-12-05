@@ -32,6 +32,9 @@ final class AssessmentServiceTest extends TestCase
         $_POST['description'] = "placeholder";
         $_POST['hasNA'] = 0;
         $_POST['scoring'] = "5";
+        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+        $_POST["question_status"] = "draft";
+
         AssessmentService::createAssessmentQuestion($_POST);
     }
 
@@ -47,6 +50,9 @@ final class AssessmentServiceTest extends TestCase
         $_POST['description'] = "placeholder";
         $_POST['hasNA'] = 0;
         $_POST['scoring'] = "5";
+        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+        $_POST["question_status"] = "draft";
+
         AssessmentService::createAssessmentQuestion($_POST);
     }
 
@@ -62,6 +68,9 @@ final class AssessmentServiceTest extends TestCase
         $_POST['description'] = "";
         $_POST['hasNA'] = 0;
         $_POST['scoring'] = "5";
+        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+        $_POST["question_status"] = "draft";
+
         AssessmentService::createAssessmentQuestion($_POST);
     }
 
@@ -77,6 +86,9 @@ final class AssessmentServiceTest extends TestCase
         $_POST['description'] = "placeholder";
         $_POST['hasNA'] = "";
         $_POST['scoring'] = "";
+        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+        $_POST["question_status"] = "draft";
+
         AssessmentService::createAssessmentQuestion($_POST);
     }
 
@@ -92,6 +104,9 @@ final class AssessmentServiceTest extends TestCase
         $_POST['description'] = "placeholder";
         $_POST['hasNA'] = 0;
         $_POST['scoring'] = "text";
+        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+        $_POST["question_status"] = "draft";
+
         AssessmentService::createAssessmentQuestion($_POST);
     }
 
@@ -107,6 +122,9 @@ final class AssessmentServiceTest extends TestCase
         $_POST['description'] = "placeholder";
         $_POST['hasNA'] = 0;
         $_POST['scoring'] = "-1";
+        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+        $_POST["question_status"] = "draft";
+
         AssessmentService::createAssessmentQuestion($_POST);
     }
 
@@ -132,6 +150,9 @@ final class AssessmentServiceTest extends TestCase
 		$_POST['description'] = "placeholder";
 		$_POST['hasNA'] = 0;
 		$_POST['scoring'] = "-1";
+        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+        $_POST["question_status"] = "draft";
+
 		AssessmentService::updateAssessmentQuestion($_POST);
 	}
 
@@ -159,6 +180,8 @@ final class AssessmentServiceTest extends TestCase
 		$_POST['description'] = "placeholder";
 		$_POST['hasNA'] = 0;
 		$_POST['scoring'] = "-1";
+        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+        $_POST["question_status"] = "draft";
 
 		AssessmentService::updateAssessmentQuestion($_POST);
 	}
