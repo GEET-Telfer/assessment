@@ -15,7 +15,7 @@ class AssessmentService {
 		global $wpdb;
 
 		return $wpdb->get_results(
-			"SELECT * FROM " . $wpdb->prefix . self::$tableName . " WHERE question_status='publish' ORDER BY component_abbrev"
+			"SELECT uuid, description, component, component_abbrev FROM " . $wpdb->prefix . self::$tableName . " WHERE question_status='publish' ORDER BY component_abbrev"
 		);
 	}
 
@@ -61,8 +61,8 @@ class AssessmentService {
 		// Parameters for assessment question model
 		$component   = $request['component'];
 		$description = $request['description'];
-		$hasNA       = $request['hasNA'];
-		$scoring     = $request['scoring'];
+		// $hasNA       = $request['hasNA'];
+		// $scoring     = $request['scoring'];
 		$uuid        = $request['uuid'];
 		$questionStatus = $request['question_status'];
 
@@ -73,8 +73,8 @@ class AssessmentService {
 		$validator = new AssessmentQuestionValidator();
 		$validator->isComponent( $component );
 		$validator->isDescription( $description );
-		$validator->isHasNA( $hasNA );
-		$validator->isScoring( $scoring );
+		// $validator->isHasNA( $hasNA );
+		// $validator->isScoring( $scoring );
 		$validator->isComponentAbbrev($componentAbbrevIndex);
 		$validator->isUUID( $uuid );
 		$validator->isQuestionStatus( $questionStatus );
@@ -86,9 +86,9 @@ class AssessmentService {
 										->questionStatus($questionStatus)
 		                                ->component( $component )
 										->componentAbbrev( $componentAbbrev )
-		                                ->description( $description )
-		                                ->hasNA( $hasNA )
-		                                ->scoring( $scoring );
+		                                ->description( $description );
+		                                // ->hasNA( $hasNA )
+		                                // ->scoring( $scoring );
 
 		// Add assessment question id to the model if it is to update assessment question
 		$obj = isset( $request['id'] ) ? $obj->id( $request['id'] ) : $obj;

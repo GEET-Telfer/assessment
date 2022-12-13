@@ -82,7 +82,7 @@ function deleteAssessmentQuestion() {
 }
 
 /**
- * Fetch all the assessment questions.
+ * Fetch all the published assessment questions.
  * @return void
  */
 function findAllAssessmentQuestion() {
@@ -91,6 +91,29 @@ function findAllAssessmentQuestion() {
 			throw new Exception( "Invalid Request Method", METHOD_NOT_ALLOWED );
 		}
 		$result = AssessmentService::findAllAssessmentQuestion();
+		if($result) {
+			wp_send_json_success($result);
+		} else {
+			throw new Exception("Something wrong with the server.", INTERNAL_SERVER_ERROR);
+		}
+	} catch ( Exception $e ) {
+		wp_send_json_error( $e->getMessage(), $e->getCode() );
+	} finally {
+		global $wpdb;
+		$wpdb->close();
+	}
+}
+
+/**
+ * Fetch all the assessment questions regardless of their statuses.
+ * @return void
+ */
+function findAllAssessmentQuestion4Admin() {
+	try {
+		if ( ! isset( $_GET ) ) {
+			throw new Exception( "Invalid Request Method", METHOD_NOT_ALLOWED );
+		}
+		$result = AssessmentService::findAllAssessmentQuestion4Admin();
 		if($result) {
 			wp_send_json_success($result);
 		} else {

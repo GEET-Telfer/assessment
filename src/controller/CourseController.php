@@ -95,7 +95,7 @@ function findAllCourse()
 			throw new Exception("Invalid Request Method", METHOD_NOT_ALLOWED);
 		}
 
-		$result = CourseService::findAllCourse($_GET);
+		$result = CourseService::findAllCourse();
 		if ($result) {
 			wp_send_json_success($result);
 		} else {
@@ -110,7 +110,7 @@ function findAllCourse()
 }
 
 /**
- * Fetch course by Id
+ * Fetch published course by Id
  */
 function findCourseById()
 {
@@ -120,6 +120,56 @@ function findCourseById()
 		}
 
 		$result = CourseService::findCourseById($_GET);
+		if ($result) {
+			wp_send_json_success($result);
+		} else {
+			throw new Exception("Something wrong with the server.", INTERNAL_SERVER_ERROR);
+		}
+	} catch (Exception $e) {
+		wp_send_json_error($e->getMessage(), $e->getCode());
+	} finally {
+		global $wpdb;
+		$wpdb->close();
+	}
+}
+
+/**
+ * Fetch all the courses regardless their statuses.
+ * @return void
+ */
+function findAllCourse4Admin()
+{
+	try {
+		if (!isset($_GET)) {
+			throw new Exception("Invalid Request Method", METHOD_NOT_ALLOWED);
+		}
+
+		$result = CourseService::findAllCourse4Admin();
+		if ($result) {
+			wp_send_json_success($result);
+		} else {
+			throw new Exception("Something wrong with the server.", INTERNAL_SERVER_ERROR);
+		}
+	} catch (Exception $e) {
+		wp_send_json_error($e->getMessage(), $e->getCode());
+	} finally {
+		global $wpdb;
+		$wpdb->close();
+	}
+}
+
+/**
+ * Fetch the courses by id regardless its status.
+ * @return void
+ */
+function findCourseById4Admin()
+{
+	try {
+		if (!isset($_GET)) {
+			throw new Exception("Invalid Request Method", METHOD_NOT_ALLOWED);
+		}
+
+		$result = CourseService::findCourseById4Admin($_GET);
 		if ($result) {
 			wp_send_json_success($result);
 		} else {

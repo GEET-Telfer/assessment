@@ -66,6 +66,8 @@ class AssessmentQuestionValidator extends BaseValidator {
      */
     public function isQuestionStatus($content)
     {
+        parent::isRequired($content, "Missing Parameter: Status");
+		
         if( !in_array($content, STATUS_LIST)) {
 			throw new Exception( "Status Value Not Found", UNPROCESSABLE_ENTITY_ERROR );
         }

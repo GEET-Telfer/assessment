@@ -83,8 +83,8 @@ class AssessmentQuestion {
 			'component'       => $this->component,
 			'component_abbrev' => $this->componentAbbrev,
 			'description'     => $this->description,
-			'has_NA'           => $this->hasNA,
-			'scoring'         => $this->scoring,
+			// 'has_NA'           => $this->hasNA,
+			// 'scoring'         => $this->scoring,
 			'question_status' => $this->questionStatus,
 			'uuid' => $this->uuid
 		];

@@ -24,8 +24,8 @@ function init_table_assessment(): void {
 		component_abbrev VARCHAR(255) NOT NULL,
 		description VARCHAR(255) NOT NULL,
 		has_NA BOOLEAN NOT NULL DEFAULT FALSE,
-		scoring TINYINT NOT NULL,
-		question_status ENUM('draft', 'under_review', 'publish'),
+		scoring TINYINT NOT NULL DEFAULT 5,
+		question_status ENUM('draft', 'under_review', 'publish') NOT NULL DEFAULT 'draft',
 		PRIMARY KEY (id)
 	) ";
 
@@ -88,7 +88,7 @@ function init_table_course() : void {
 		title VARCHAR(255) NOT NULL DEFAULT '',
 		video_link VARCHAR(255) NOT NULL DEFAULT '',
 		content TEXT NOT NULL DEFAULT '',
-		course_status ENUM('draft', 'under_review', 'publish'),
+		course_status ENUM('draft', 'under_review', 'publish') DEFAULT 'draft',
 		PRIMARY KEY(id)	
 	)";
 	
