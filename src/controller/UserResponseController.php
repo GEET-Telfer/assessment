@@ -48,6 +48,30 @@ function createUserResponse(): void {
 }
 
 /**
+ * Fetch all the user responses.
+ * @return void
+ */
+function findAllUserResponse(): void {
+	try {
+		if (!isset($_GET)) {
+			throw new Exception("Invalid Request Method", METHOD_NOT_ALLOWED);
+		}
+
+		$result = UserResponseService::findAllUserResponse();
+		if ($result) {
+			wp_send_json_success($result);
+		} else {
+			throw new Exception("Something wrong with the server.", INTERNAL_SERVER_ERROR);
+		}
+	} catch (Exception $e) {
+		wp_send_json_error($e->getMessage(), $e->getCode());
+	} finally {
+		global $wpdb;
+		$wpdb->close();
+	}
+}
+
+/**
  * Display summaries with html tags
  * @param $message
  * @return bool|string

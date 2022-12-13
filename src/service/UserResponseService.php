@@ -27,6 +27,18 @@ class UserResponseService {
 	}
 
 	/**
+	 * Retrieve all the user responses
+	 * @return array|object|stdClass[]|null
+	 */
+	public static function findAllUserResponse( ) {
+		global $wpdb;
+
+		return $wpdb->get_results(
+			"SELECT responses, score, report FROM " . $wpdb->prefix . self::$tableName
+		);
+	}
+
+	/**
 	 * Parse http request and validate request parameters.
 	 *
 	 * @param $request

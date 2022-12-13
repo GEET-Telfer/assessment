@@ -136,11 +136,11 @@ class CourseService {
 		$validator->isTitle($title);
 		$validator->isVideoLink($videoLink);
 		$validator->isContent($content);
-		$validator->isCourseStatus($content);
+		$validator->isCourseStatus($course_status);
 
 		$obj = CourseBuilder::init()
 							->uuid( $uuid )
-							->course_status( $course_status )
+							->courseStatus( $course_status )
                             ->title( $title )
                             ->videoLink( $videoLink )
                             ->content( $content );

@@ -78,55 +78,55 @@ final class AssessmentServiceTest extends TestCase
      * Throw UNPROCESSABLE_ENTITY_ERROR when having empty scoring
      * @return void
      */
-    public function test_createAssessmentService_should_throw_UnprocessableEntityError_withEmptyScoring(): void
-    {
-        $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
+    // public function test_createAssessmentService_should_throw_UnprocessableEntityError_withEmptyScoring(): void
+    // {
+    //     $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
 
-        $_POST['component'] = "Gender Expertise";
-        $_POST['description'] = "placeholder";
-        $_POST['hasNA'] = "";
-        $_POST['scoring'] = "";
-        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
-        $_POST["question_status"] = "draft";
+    //     $_POST['component'] = "Gender Expertise";
+    //     $_POST['description'] = "placeholder";
+    //     $_POST['hasNA'] = "";
+    //     $_POST['scoring'] = "";
+    //     $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+    //     $_POST["question_status"] = "draft";
 
-        AssessmentService::createAssessmentQuestion($_POST);
-    }
+    //     AssessmentService::createAssessmentQuestion($_POST);
+    // }
 
     /**
      * Throw UNPROCESSABLE_ENTITY_ERROR when having invalid scoring
      * @return void
      */
-    public function test_createAssessmentService_should_throw_UnprocessableEntityError_withInvalidScoringType(): void
-    {
-        $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
+    // public function test_createAssessmentService_should_throw_UnprocessableEntityError_withInvalidScoringType(): void
+    // {
+    //     $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
 
-        $_POST['component'] = "Gender Expertise";
-        $_POST['description'] = "placeholder";
-        $_POST['hasNA'] = 0;
-        $_POST['scoring'] = "text";
-        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
-        $_POST["question_status"] = "draft";
+    //     $_POST['component'] = "Gender Expertise";
+    //     $_POST['description'] = "placeholder";
+    //     $_POST['hasNA'] = 0;
+    //     $_POST['scoring'] = "text";
+    //     $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+    //     $_POST["question_status"] = "draft";
 
-        AssessmentService::createAssessmentQuestion($_POST);
-    }
+    //     AssessmentService::createAssessmentQuestion($_POST);
+    // }
 
     /**
      * Throw UNPROCESSABLE_ENTITY_ERROR when having negative scoring(logical error)
      * @return void
      */
-    public function test_createAssessmentService_should_throw_UnprocessableEntityError_withNegativeScoring(): void
-    {
-        $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
+    // public function test_createAssessmentService_should_throw_UnprocessableEntityError_withNegativeScoring(): void
+    // {
+    //     $this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
 
-        $_POST['component'] = "Gender Expertise";
-        $_POST['description'] = "placeholder";
-        $_POST['hasNA'] = 0;
-        $_POST['scoring'] = "-1";
-        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
-        $_POST["question_status"] = "draft";
+    //     $_POST['component'] = "Gender Expertise";
+    //     $_POST['description'] = "placeholder";
+    //     $_POST['hasNA'] = 0;
+    //     $_POST['scoring'] = "-1";
+    //     $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+    //     $_POST["question_status"] = "draft";
 
-        AssessmentService::createAssessmentQuestion($_POST);
-    }
+    //     AssessmentService::createAssessmentQuestion($_POST);
+    // }
 
 	/**
 	 * Throw UNPROCESSABLE_ENTITY_ERROR if there is no question id passed.
@@ -172,17 +172,17 @@ final class AssessmentServiceTest extends TestCase
 	 * @return void
 	 * @throws Exception
 	 */
-	public function test_updateAssessmentService_should_throw_UnprocessableEntityError_withInvalidRequestBody() : void {
-		$this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
+	// public function test_updateAssessmentService_should_throw_UnprocessableEntityError_withInvalidRequestBody() : void {
+	// 	$this->expectExceptionCode(UNPROCESSABLE_ENTITY_ERROR);
 
-		$_POST['id'] = 1;
-		$_POST['component'] = "Gender Expertise";
-		$_POST['description'] = "placeholder";
-		$_POST['hasNA'] = 0;
-		$_POST['scoring'] = "-1";
-        $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
-        $_POST["question_status"] = "draft";
+	// 	$_POST['id'] = 1;
+	// 	$_POST['component'] = "Gender Expertise";
+	// 	$_POST['description'] = "placeholder";
+	// 	$_POST['hasNA'] = 0;
+	// 	$_POST['scoring'] = "-1";
+    //     $_POST["uuid"] = "45815150-a05f-4cc3-84c6-5d6318eeef3d";
+    //     $_POST["question_status"] = "draft";
 
-		AssessmentService::updateAssessmentQuestion($_POST);
-	}
+	// 	AssessmentService::updateAssessmentQuestion($_POST);
+	// }
 }

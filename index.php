@@ -34,6 +34,7 @@ add_action( 'wp_ajax_find_all_assessment_question_for_admin', 'findAllAssessment
 // User Response Controller
 require_once('src/controller/UserResponseController.php');
 add_action( 'wp_ajax_create_user_response', 'createUserResponse' );
+add_action( 'wp_ajax_find_all_user_response', 'findAllUserResponse' );
 
 // Course Controllers
 require_once('src/controller/CourseController.php');
