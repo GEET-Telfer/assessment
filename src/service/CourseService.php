@@ -43,7 +43,7 @@ class CourseService {
 		}
 
 		return $wpdb->get_results(
-			"SELECT uuid, title, video_link, content FROM " . $wpdb->prefix . self::$tableName . " WHERE uuid=".$request['uuid'] ." AND course_status='publish'"
+			"SELECT uuid, title, video_link, content FROM " . $wpdb->prefix . self::$tableName . " WHERE uuid='".$request['uuid'] ."' AND course_status='publish'"
 		);
 	}
 
