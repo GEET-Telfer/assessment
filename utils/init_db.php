@@ -26,6 +26,8 @@ function init_table_assessment(): void {
 		has_NA BOOLEAN NOT NULL DEFAULT FALSE,
 		scoring TINYINT NOT NULL DEFAULT 5,
 		question_status ENUM('draft', 'under_review', 'publish') NOT NULL DEFAULT 'draft',
+		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+		updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 		PRIMARY KEY (id)
 	) ";
 
@@ -48,6 +50,7 @@ function init_table_user_response(): void {
 		responses TEXT,
 		score DECIMAL(13,2) NOT NULL DEFAULT 0.00,
 		report TEXT,
+		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 		PRIMARY KEY (id)
 	) ";
 
@@ -89,6 +92,8 @@ function init_table_course() : void {
 		video_link VARCHAR(255) NOT NULL DEFAULT '',
 		content TEXT NOT NULL DEFAULT '',
 		course_status ENUM('draft', 'under_review', 'publish') DEFAULT 'draft',
+		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+		updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 		PRIMARY KEY(id)	
 	)";
 	
