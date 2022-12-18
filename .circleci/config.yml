@@ -1,0 +1,32 @@
+version: '2.1'
+
+orbs:
+  php: circleci/php@1.1.0
+  browser-tools: circleci/browser-tools@1.2.3 
+jobs:
+  build:
+    executor: php/default
+
+    docker:
+        - image: 'cimg/php:7.4.32'
+
+    steps:
+      - checkout
+      - php/install-composer:
+          install-version: 1.10.16
+      - php/install-packages
+      # - run: ./vendor/bin/phpunit
+      - browser-tools/install-browser-tools
+      - run:
+          name: "Run tests"
+          command: phpdbg -qrr vendor/bin/phpunit --coverage-html build/coverage-report
+          environment:
+            XDEBUG_MODE: coverage
+      - store_artifacts:
+          path:  build/coverage-report
+
+workflows:
+  install:
+    jobs:
+      # - install_php
+      - build
